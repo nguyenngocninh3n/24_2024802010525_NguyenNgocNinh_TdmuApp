@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "77194624099",
+    "project_id": "tdmu-app",
+    "storage_bucket": "tdmu-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77194624099:android:441dd21efea57494a10c56",
+        "android_client_info": {
+          "package_name": "com.tdmuapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77194624099-rog9i7omlkhaga5fsbnptsp0fj9u70it.apps.googleusercontent.com",
+          "client_type": 3,
+          "android_info": {
+            "package_name": "com.tdmuapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "77194624099-c6bfhn2iencledrpov9b8169nfl2f157.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvG3xMAMlcK5-o-m_cRW0RhrNPWk7s0QY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77194624099-c6bfhn2iencledrpov9b8169nfl2f157.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
