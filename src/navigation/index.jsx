@@ -32,9 +32,8 @@ import SearchResultScreen from '../screens/Search/SearchResult'
 const Stack = createNativeStackNavigator()
 
 import notifee, { EventType } from '@notifee/react-native'
-import messaging from '@react-native-firebase/messaging'
 import { handleStartNotify } from '../notification/notifee'
-import { Linking } from 'react-native'
+import { ActivityIndicator, Linking } from 'react-native'
 import { API } from '../api'
 import { OPEN_SCREEN, TYPE_SCREEN } from '../utils/Constants'
 import OwnerProfile from '../screens/Profile/Owner'
@@ -58,6 +57,7 @@ import ProfileVideoScreen from '../screens/Profile/VideoScreen'
 import ListGroupScreen from '../screens/Group/ListGroup'
 import SearchScreen from '../screens/Search'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import messaging from '@react-native-firebase/messaging'
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { signOutWithGoogle } from '~/screens/auth/signinMethod'
@@ -65,6 +65,7 @@ import AuthNavigator from './AuthNavigator'
 import HomeNavigator from './HomeNavigator'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectCurrentUser, userAction } from '~/redux/slice/userSlice'
+import Loading from './Loading'
 
 async function requestUserPermission() {
   await messaging().requestPermission()
@@ -164,6 +165,7 @@ const Navigation = () => {
   requestUserPermission()
   const dispatch = useDispatch()
   const user = useSelector(selectCurrentUser)
+  const [isLoading, setIsLoading] = useState(true)
 
   const handleAuth = async () => {
     // await signOutWithGoogle().then(() => {
@@ -172,12 +174,15 @@ const Navigation = () => {
     const storageUser = await AsyncStorage.getItem('user')
     const userInfo = JSON.parse(storageUser)
     if (userInfo) {
-      // await API.getUserByIdAPI({ uid: userInfo._id }).then( (data) => {
-        dispatch(userAction.loginCurrentUser(userInfo))
-      
+      const fcmToken = await messaging().getToken()
+   console.log('userId; ', userInfo._id)
+      const data = await API.loginAPI({ data: { _id: userInfo._id, fcmToken } })
+      console.log('into data: ', data)
+      dispatch(userAction.loginCurrentUser(data))
     }
     // await AsyncStorage.setItem('user', '123')
-    const value = await AsyncStorage.getItem('user')
+    // const value = await AsyncStorage.getItem('user')
+    setIsLoading(false)
   }
   useEffect(() => {
     handleAuth()
@@ -186,7 +191,9 @@ const Navigation = () => {
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {!user ? (
+        {isLoading ? (
+          <Stack.Screen name="loading" component={Loading} />
+        ) : !user ? (
           <Stack.Screen name="auth" component={AuthNavigator} />
         ) : (
           <>

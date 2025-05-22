@@ -4,10 +4,13 @@ import { useFocusEffect } from '@react-navigation/native'
 import { API } from '../../../api'
 import DetailScreen from '../Detail'
 import { useCustomContext } from '../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const DetailContainerScreen = ({ navigation, route }) => {
   const { conventionID } = route.params
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [conventionData, setConventionData] = useState()
   const [member, setMembers] = useState()
   useFocusEffect(

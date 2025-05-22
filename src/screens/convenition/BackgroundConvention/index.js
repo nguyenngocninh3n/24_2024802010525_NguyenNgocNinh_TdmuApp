@@ -11,13 +11,16 @@ import { MESSAGE_NOTIFY_STATUS, MESSAGE_NOTIFY_TYPE, MESSAGE_TYPE } from '../../
 import GoBackComponent from '../../../components/GoBackComponent'
 import { Socket } from 'socket.io-client'
 import SocketClient from '../../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const BackgroundConvention = ({ navigation, route }) => {
   const { conventionID } = route.params
   const [avatar, setAvatar] = useState(API.getFileUrl(route.params.avatar))
   const [imageViewState, setImageViewState] = useState(false)
   const [updated, setUpdated] = useState(false)
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const handlePressAvatar = () => {
     setImageViewState(true)
   }

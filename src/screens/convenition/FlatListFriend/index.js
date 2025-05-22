@@ -7,6 +7,8 @@ import AvatarComponent from '../../../components/AvatarComponent'
 import { helper } from '../../../utils/helpers'
 import { useCustomContext } from '../../../store'
 import SocketClient from '../../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const FriendItem = ({ _id, onPress }) => {
   const [data, setData] = useState({})
@@ -50,7 +52,8 @@ const FriendItem = ({ _id, onPress }) => {
 }
 
 const FlatListFriend = ({ navigation }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [friendData, setFriendData] = useState([])
 
   useEffect(() => {

@@ -9,9 +9,12 @@ import FlatlistConventionModal from '../../../modals/FlatlistConventionModal'
 import PauseNotifyModal from '../../../modals/PauseNotifyModal/index.js'
 import { NOTIFY_CONVENTION_STATUS, RESPONSE_STATUS } from '../../../utils/Constants.js'
 import { helper } from '../../../utils/helpers/index.js'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const FlatListConvention = ({ navigation }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [conventions, setConventions] = useState([])
 
   useFocusEffect(

@@ -7,10 +7,13 @@ import UserRowComponent from '../../../components/UserRowComponent'
 import { useFocusEffect } from '@react-navigation/native'
 import groupStype from '../../Group/groupStyle'
 import SpaceComponent from '../../../components/SpaceComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const SearchUserScreen = ({ navigation, route }) => {
   const { search } = route.params
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState([])
 

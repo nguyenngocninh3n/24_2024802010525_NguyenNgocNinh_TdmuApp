@@ -6,6 +6,8 @@ import { RESPONSE_STATUS } from '../../utils/Constants'
 import RowComponent from '../../components/RowComponent'
 import AvatarComponent from '../../components/AvatarComponent'
 import SpaceComponent from '../../components/SpaceComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const NotificationItem = ({item}) => {
   return (
@@ -18,7 +20,8 @@ const NotificationItem = ({item}) => {
 }
 
 const NotificationScreen = () => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [notificationData, setNotificationData] = useState([])
 
   useEffect(() => {

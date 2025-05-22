@@ -9,6 +9,8 @@ import { OpacityButtton } from '../../../components/ButtonComponent'
 import { FRIEND_STATUS, RESPONSE_STATUS } from '../../../utils/Constants'
 import GoBackComponent from '../../../components/GoBackComponent'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const FriendItem = ({ item, onPress, onRemove, ownerID }) => {
   const [title, setTitle] = useState()
@@ -100,7 +102,8 @@ const handleRemoveSuggest = async (ownerID, userID) => {
   return response
 }
 const SuggestFriendScreen = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [suggests, setSuggests] = useState([])
 
   useEffect(() => {

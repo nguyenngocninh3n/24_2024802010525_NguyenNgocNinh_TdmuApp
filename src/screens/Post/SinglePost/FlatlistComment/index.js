@@ -13,11 +13,14 @@ import CommentItem from '../../../../components/CommentItem'
 import CustomInput from '../../../../modals/CommentModal/CustomInput'
 import EditableModal from '../../../../modals/EditableModal'
 import PopUpModal from '../../../../modals/PopUpModal'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 
 const FlatListComment = ({ postID }) => {
   const [commentData, setCommmentData] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
   const [editableItem, setEditableItem] = useState()

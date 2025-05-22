@@ -7,10 +7,13 @@ import { API } from '../../../api'
 import { useCustomContext } from '../../../store'
 import { useFocusEffect } from '@react-navigation/native'
 import { RESPONSE_STATUS } from '../../../utils/Constants'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const SearchGroupScreen = ({ navigation, route }) => {
   const { search } = route.params
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [userData, setUserData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 

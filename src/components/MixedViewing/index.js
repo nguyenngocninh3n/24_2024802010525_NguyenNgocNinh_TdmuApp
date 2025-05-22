@@ -11,16 +11,17 @@ const MixedViewing = ({ attachments, width, height }) => {
     setImageViewIndex(id)
     setImageViewState(true)
   }
+  console.log('attachments: ', attachments)
   return (
-    <View >
+    <View>
       <View style={{ flexWrap: 'wrap', flexDirection: 'row' }}>
         {attachments.map((item, index) => {
-          return (
-            item.type === 'image/jpeg' ? <ImagePressable
+          return ['image/jpeg', 'image/png'].includes(item.type) ? (
+            <ImagePressable
               key={index}
               onPress={() => handleClickImage(index)}
               containerStyle={{
-                width:  width ?? '31%',
+                width: width ?? '31%',
                 height: height ?? 100,
                 marginHorizontal: 2,
                 marginVertical: 2,
@@ -29,13 +30,13 @@ const MixedViewing = ({ attachments, width, height }) => {
               }}
               source={item.uri}
             />
-            :
+          ) : (
             <VideoComponent key={index} source={item.uri} width={100} height={100} />
           )
         })}
       </View>
       <EnhancedImageViewing
-        images={attachments.filter(item => item.type === 'image/jpeg')}
+        images={attachments.filter((item) => item.type === 'image/jpeg')}
         // images={attachments}
         imageIndex={imageViewIndex}
         onImageIndexChange={(id) => setImageViewIndex(id)}

@@ -9,6 +9,8 @@ import { useCustomContext } from '../../../../store'
 import { Text, View } from 'react-native'
 import { REACTION_TYPE } from '../../../../utils/Constants'
 import PostReactionModal from '../../../../modals/PostReactionModal'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const icon = {
   none: 'heart',
@@ -16,7 +18,9 @@ const icon = {
 }
 
 const PostFooter = ({ postID, ownerID, item }) => {
-  const [state, dispatch] = useCustomContext()
+  
+  const state = useSelector(selectCurrentUser)
+
   const [modalVisible, setModalVisible] = useState(false)
   const [reaction, setReaction] = useState()
   const handleShowModal = useCallback(() => setModalVisible(true), [])

@@ -6,12 +6,15 @@ import { PermissionsAndroid } from 'react-native'
 import SocketClient from '../../socket'
 import { useCustomContext } from '../../store'
 import { configureBackgroundFetch } from '../../socket/backgroundfetch'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 
 
 const NotificationScreen = ({ navigation }) => {
   const [users, setUsers] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
 
   const doSomeThing = async () => {
     const data = await API.getAllUserAPI()

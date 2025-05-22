@@ -7,8 +7,11 @@ import NewPostBox from '../../components/NewPostBox'
 import FlatListPostNewFeed from '../../components/FlatListPostNewFeed'
 import { useCustomContext } from '../../store'
 import SocketClient from '../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 const HomeScreen = ({ navigation }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
 
   const requestPermission = async () => {
     await PermissionsAndroid.request('android.permission.USE_EXACT_ALARM')

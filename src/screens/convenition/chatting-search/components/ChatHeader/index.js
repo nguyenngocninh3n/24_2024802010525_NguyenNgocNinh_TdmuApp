@@ -8,8 +8,11 @@ import { navigationRef, useCustomContext } from '../../../../../store'
 import { API } from '../../../../../api'
 import { CONVENTION_TYPE } from '../../../../../utils/Constants'
 import RNRestart from 'react-native-restart'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 const ChatHeader = ({ name, avatar, type, conventionID, members, userIdReceive }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [userID, setUserID] = useState()
 
   const ownerID = state._id

@@ -8,6 +8,8 @@ import { OpacityButtton } from '../../../components/ButtonComponent'
 import { API } from '../../../api'
 import { RESPONSE_STATUS } from '../../../utils/Constants'
 import { useCustomContext } from '../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const SCOPE_DATA = [
   { label: 'Công khai', value: 'PUBLIC' },
@@ -18,7 +20,8 @@ const NewGroupScreen = ({ navigation }) => {
   const [groupName, setGroupName] = useState('')
   const [groupBio, setGroupBio] = useState('')
   const [scope, setScope] = useState('PUBLIC')
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const handleChangeGroupName = (value) => setGroupName(value)
   const handleChangeGroupBio = (value) => setGroupBio(value)
 

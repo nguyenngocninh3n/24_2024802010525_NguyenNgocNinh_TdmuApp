@@ -6,6 +6,8 @@ import SpaceComponent from '../../../SpaceComponent'
 import CommentModal from '../../../../modals/CommentModal'
 import { API } from '../../../../api'
 import { useCustomContext } from '../../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const icon = {
   none: 'heart',
@@ -13,7 +15,7 @@ const icon = {
 }
 
 const PostFooter = ({ postID, ownerID, item }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
   const [modalVisible, setModalVisible] = useState(false)
   const [reaction, setReaction] = useState()
   const handleShowModal = useCallback(() => setModalVisible(true), [])

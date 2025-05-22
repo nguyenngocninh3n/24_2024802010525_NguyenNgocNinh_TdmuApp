@@ -7,7 +7,6 @@ import ChattingSearchScreen from '../convenition/chatting-search'
 
 const MiddleWareNavigationScreen = ({ navigation, route }) => {
   const { screen, conventionID, ownerID } = route.params
-  const [stateValue, dispatch] = useCustomContext()
   const [ownerInfo, setOwnerInfo] = useState()
   useEffect(() => {
     API.getUserByIdAPI({ uid: ownerID }).then((response) => {

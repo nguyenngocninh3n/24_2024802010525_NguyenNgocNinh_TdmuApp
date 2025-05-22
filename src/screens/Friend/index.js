@@ -9,6 +9,8 @@ import { OpacityButtton } from '../../components/ButtonComponent'
 import { FRIEND_STATUS, RESPONSE_STATUS } from '../../utils/Constants'
 import SearchComponent from '../../components/SearchComponent'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 const FriendItem = ({ item, onPress, ownerID }) => {
   const handleClickItem = () => onPress(item._id)
   const handleSendMessage = () => navigate('ChattingScreen', {userID: item._id, ownerID})
@@ -40,7 +42,8 @@ const CustomButton = ({ title, onPress }) => {
 }
 
 const ListFriendScreen = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [friends, setFriends] = useState([])
 
   useEffect(() => {

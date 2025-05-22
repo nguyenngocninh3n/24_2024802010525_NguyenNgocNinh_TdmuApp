@@ -7,11 +7,13 @@ import RowComponent from '../../../components/RowComponent'
 import AvatarComponent from '../../../components/AvatarComponent'
 import { API } from '../../../api'
 import { RESPONSE_STATUS } from '../../../utils/Constants'
+import { useDispatch } from 'react-redux'
+import { userAction } from '~/redux/slice/userSlice'
 
 const BioScreen = ({ navigation, route }) => {
   const { user } = route.params
   const [inputValue, setInputValue] = useState(user.bio)
-
+  const dispatch = useDispatch()
   const handleInputChange = (newValue) => {
     setInputValue(newValue)
   }
@@ -20,6 +22,7 @@ const BioScreen = ({ navigation, route }) => {
     API.updateUserBioAPI(user._id, inputValue).then((data) => {
       if (data === RESPONSE_STATUS.SUCCESS) {
         ToastAndroid.show('Cập nhật tiểu sử thành công', ToastAndroid.SHORT)
+        dispatch(userAction.updateCurrentUser({ bio: inputValue }))
         navigation.goBack()
       } else {
         ToastAndroid.show('Xảy ra lỗi, vui lòng thử lại!', ToastAndroid.SHORT)
@@ -31,9 +34,17 @@ const BioScreen = ({ navigation, route }) => {
   return (
     <View>
       <GoBackComponent color={'blue'}>
-        <RowComponent alignItems style={{flex:1, marginHorizontal:8, justifyContent: 'space-between' }}>
+        <RowComponent
+          alignItems
+          style={{ flex: 1, marginHorizontal: 8, justifyContent: 'space-between' }}
+        >
           <Text>Chỉnh sửa tiểu sử</Text>
-          <OpacityButtton title={'Lưu'} textColor={'blue'} textSize={18} onPress={handleUpdateBio} />
+          <OpacityButtton
+            title={'Lưu'}
+            textColor={'blue'}
+            textSize={18}
+            onPress={handleUpdateBio}
+          />
         </RowComponent>
       </GoBackComponent>
       <SpaceComponent height={8} />

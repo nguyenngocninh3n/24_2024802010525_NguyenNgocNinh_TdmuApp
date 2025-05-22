@@ -4,9 +4,12 @@ import { API } from '../../../api'
 import PostHandler from '../components/PostHandler'
 import { POST_TYPE, RESPONSE_STATUS } from '../../../utils/Constants'
 import { useCustomContext } from '../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const NewPost = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const handleSubmit = (ownerID, customAttachments, value, scope, pollID) => {
     const newPostData = {
       groupID: route.params.groupID ?? null,

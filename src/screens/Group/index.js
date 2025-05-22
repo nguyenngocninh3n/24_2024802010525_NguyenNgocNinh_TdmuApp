@@ -10,11 +10,14 @@ import FlatListPostGroup from '../../components/FlatListPostGroup'
 import { useCustomContext } from '../../store'
 import GoBackComponent from '../../components/GoBackComponent'
 import SearchComponent from '../../components/SearchComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const GroupScreen = ({ navigation, route }) => {
   const [group, setGroup] = useState({})
   const [modalVisible, setModalVisibal] = useState(false)
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const { groupID } = route.params
 
   useEffect(() => {

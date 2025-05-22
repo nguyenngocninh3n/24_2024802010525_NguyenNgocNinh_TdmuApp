@@ -10,39 +10,45 @@ import { useCustomContext } from '../../../store'
 import FlatListPost from '../../../components/FlatListPost'
 import { API } from '../../../api'
 import SocketClient from '../../../socket'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentUser, userAction } from '~/redux/slice/userSlice'
 
 const OwnerProfile = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
-  const [user, setUser] = useState()
+  const user = useSelector(selectCurrentUser)
+  const dispatch = useDispatch()
+  // const [user, setUser] = useState()
   useEffect(() => {
-    API.getUserByIdAPI({ uid: state._id }).then((response) => {
-      setUser(response)
-    })
+    // API.getUserByIdAPI({ uid: state._id }).then((response) => {
+    //   setUser(response)
+    // })
   }, [])
 
 
 
   useEffect(() => {
     SocketClient.socket.on('emitBioProfileChange', (data) => {
-      setUser((pre) => {
-        const customUser = { ...pre, bio: data.bio }
-        return customUser
-      })
+      // setUser((pre) => {
+      //   const customUser = { ...pre, bio: data.bio }
+      //   return customUser
+      // })
+      // dispatch(userAction.updateCurrentUser({bio: data.bio}))
     })
 
     SocketClient.socket.on('emitAvatarProfileChange', (data) => {
-      setUser((pre) => {
-        const customUser = { ...pre }
-        customUser.avatar = data.avatar
-        return customUser
-      })
+      // setUser((pre) => {
+      //   const customUser = { ...pre }
+      //   customUser.avatar = data.avatar
+      //   return customUser
+      // })
+      dispatch(userAction.updateCurrentUser({avatar: data.avatar}))
+
     })
 
     SocketClient.socket.on('emitBackgroundProfileChange', (data) => {
-      setUser((pre) => {
-        const customUser = { ...pre, background: data.background }
-        return customUser
-      })
+      // setUser((pre) => {
+      //   const customUser = { ...pre, background: data.background }
+      //   return customUser
+      // })
     })
   }, [])
 

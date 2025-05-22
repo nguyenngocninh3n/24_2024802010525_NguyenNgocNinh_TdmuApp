@@ -10,6 +10,8 @@ import { API } from '../../api'
 import { useCustomContext } from '../../store'
 import { MESSAGE_NOTIFY_TYPE, MESSAGE_TYPE } from '../../utils/Constants'
 import SocketClient from '../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const PollingModal = ({
   modalVisible,
@@ -25,7 +27,8 @@ const PollingModal = ({
   const [ownerChosen, setOwnerChosen] = useState(
     poll.results.filter((item) => item.userID === ownerID)?.at(0)?.optionIDs ?? []
   )
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
 
   const checkItem = (optionID) => setOwnerChosen((pre) => [...pre, optionID])
   const uncheckItem = (optionID) =>

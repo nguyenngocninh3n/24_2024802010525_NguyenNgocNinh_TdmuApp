@@ -8,10 +8,12 @@ import SocketClient from '../../socket'
 import NewPostBox from '../NewPostBox'
 import Stories from '../Stories'
 import { REACTION_TYPE } from '../../utils/Constants'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const FlatListPostNewFeed = ({ navigation }) => {
   const [postsData, setPostsData] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
   useEffect(() => {
     API.getNewFeedPostsAPI(state._id).then((response) => {
       setPostsData(response)
@@ -32,10 +34,7 @@ const FlatListPostNewFeed = ({ navigation }) => {
   //     })
   //   })
 
-   
   // }, [])
-
-
 
   // ON LISTEN COMMENT ACTION
   // useEffect(() => {
@@ -49,7 +48,6 @@ const FlatListPostNewFeed = ({ navigation }) => {
   //     })
   //   })
   // }, [])
-
 
   // POSTVIEW ACTION
   const timeoutRefs = useRef(new Map()) // Lưu timeout cho từng item
@@ -83,36 +81,35 @@ const FlatListPostNewFeed = ({ navigation }) => {
   }
 
   useEffect(() => {
-    SocketClient.socket.on('emitAddPost', data => {
-      setPostsData(pre => {
+    SocketClient.socket.on('emitAddPost', (data) => {
+      setPostsData((pre) => {
         const customArr = [data.post, ...pre]
         return customArr
       })
     })
 
-    SocketClient.socket.on('emitEditPost', data => {
-      setPostsData(pre => {
+    SocketClient.socket.on('emitEditPost', (data) => {
+      setPostsData((pre) => {
         const customArr = [...pre]
-        const filterIndex = customArr.findIndex(item => item._id === data.post._id)
+        const filterIndex = customArr.findIndex((item) => item._id === data.post._id)
         if (filterIndex !== -1) {
           customArr[filterIndex] = data.post
         }
         return customArr
       })
-
     })
-    SocketClient.socket.on('emitRemovePost', data => {
-      setPostsData(pre => {
+    SocketClient.socket.on('emitRemovePost', (data) => {
+      setPostsData((pre) => {
         const customArr = [...pre]
-        const filterArr = customArr.filter(item => item._id !== data.postID)
+        const filterArr = customArr.filter((item) => item._id !== data.postID)
         return filterArr
       })
     })
 
-    SocketClient.socket.on('emitReactionPostChange', data => {
-      setPostsData(pre => {
+    SocketClient.socket.on('emitReactionPostChange', (data) => {
+      setPostsData((pre) => {
         const customArr = [...pre]
-        const filterIndex = customArr.findIndex(item => item._id === data.post._id)
+        const filterIndex = customArr.findIndex((item) => item._id === data.post._id)
         if (filterIndex !== -1) {
           customArr[filterIndex] = data.post
         }
@@ -120,17 +117,16 @@ const FlatListPostNewFeed = ({ navigation }) => {
       })
     })
 
-    SocketClient.socket.on('emitCommentPostChange', data => {
-      setPostsData(pre => {
+    SocketClient.socket.on('emitCommentPostChange', (data) => {
+      setPostsData((pre) => {
         const customArr = [...pre]
-        const filterIndex = customArr.findIndex(item => item._id === data.post._id)
+        const filterIndex = customArr.findIndex((item) => item._id === data.post._id)
         if (filterIndex !== -1) {
           customArr[filterIndex] = data.post
         }
         return customArr
       })
     })
-   
   }, [])
 
   return (
@@ -138,7 +134,7 @@ const FlatListPostNewFeed = ({ navigation }) => {
       // scrollEnabled={false}
       data={postsData}
       initialNumToRender={2}
-      style={{backgroundColor:'#fff'}}
+      style={{ backgroundColor: '#fff' }}
       ItemSeparatorComponent={
         <View style={{ height: 4, marginVertical: 16, backgroundColor: '#fff' }} />
       }

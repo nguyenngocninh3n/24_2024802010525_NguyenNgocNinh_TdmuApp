@@ -6,9 +6,12 @@ import { navigationRef, useCustomContext } from '../../../store'
 import { RESPONSE_STATUS } from '../../../utils/Constants'
 import WrappedFlatListPost from '../../../components/WrappedFlatlistPost'
 import { useFocusEffect } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const SearchFileScreen = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [postData, setPostData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const { search } = route.params

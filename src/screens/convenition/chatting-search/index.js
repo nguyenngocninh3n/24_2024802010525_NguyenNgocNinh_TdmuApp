@@ -16,13 +16,16 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import { MESSAGE_NOTIFY_STATUS, MESSAGE_NOTIFY_TYPE, MESSAGE_TYPE } from '../../../utils/Constants'
 import SpaceComponent from '../../../components/SpaceComponent'
 import PollModal from '../../../modals/PollModal'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const ChattingSearchScreen = ({ navigation, route }) => {
   let { userID } = route.params
   const ownerID = route.params?.ownerID
   const [conventionID, setConventionID] = useState(route.params.conventionID)
   const [chatData, setChatData] = useState([])
-  const [stateValue, dispatch] = useCustomContext()
+  const stateValue = useSelector(selectCurrentUser)
+
   const [state, setState] = useState(stateValue ? stateValue : route.params.ownerInfo)
   const [members, setMembers] = useState(new Map())
   const [conventionInfo, setConventionInfo] = useState({})

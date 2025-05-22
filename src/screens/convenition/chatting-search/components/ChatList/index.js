@@ -7,9 +7,12 @@ import { API } from '../../../../../api'
 import SocketClient from '../../../../../socket'
 import { MESSAGE_ACTION } from '../../../../../utils/Constants'
 import { useCustomContext } from '../../../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const ChatList = React.memo(({ conventionID, onLongPress, search }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [chatData, setChatData] = useState([])
   const [members, setMembers] = useState(new Map())
   const [ownerID, setOwnerID] = useState(state._id)

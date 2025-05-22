@@ -17,9 +17,12 @@ import CreatePollScreen from '../../../convenition/Vote'
 import DropDownRole from '../DropDownRole'
 import PostInput from '../PostInput'
 import TextComponent from '~/components/TextComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const PostHandler = ({ postData = {}, type, files, onSubmit, editable, groupID }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [atttachments, setAttachments] = useState(files)
   const [scopePost, setScopePost] = useState(SCOPE.PUBLIC)
   const postInputRef = useRef({ value: postData.content })

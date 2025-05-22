@@ -17,12 +17,15 @@ import { API } from '../../../api'
 import { useCustomContext } from '../../../store'
 import { MESSAGE_TYPE, POLL_TYPE, RESPONSE_STATUS } from '../../../utils/Constants'
 import { OpacityButtton } from '../../../components/ButtonComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 
 const CreatePollScreen = ({ onSendMessage, onCancel, submitState, onPollChange, onPollClear }) => {
   const [question, setQuestion] = useState('')
   const [options, setOptions] = useState(['']) // Ít nhất 2 tùy chọn mặc định
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const handleAddOption = () => {
     setOptions([...options, ''])
     onPollChange && onPollChange({ options: [...options, ''] })

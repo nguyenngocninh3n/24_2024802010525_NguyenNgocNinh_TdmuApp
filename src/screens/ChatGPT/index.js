@@ -4,8 +4,11 @@ import { API } from '../../api'
 import { useCustomContext } from '../../store'
 import GoBackComponent from '../../components/GoBackComponent'
 import Octicons from 'react-native-vector-icons/Octicons'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 const ChatGPTScreen = () => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [chatData, setChatData] = useState([])
   const [inputText, setInputText] = useState('')
   const [typing, setTyping] = useState('')

@@ -9,6 +9,8 @@ import { MESSAGE_NOTIFY_STATUS, MESSAGE_NOTIFY_TYPE, MESSAGE_TYPE } from '../../
 import { OpacityButtton } from '../../../components/ButtonComponent'
 import GoBackComponent from '../../../components/GoBackComponent'
 import SocketClient from '../../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const CustomModal = ({ modalVisible, onClose, onClear, onUpdate, aka }) => {
   const [inputValue, setInputValue] = useState('')
@@ -89,7 +91,8 @@ const AkaScreen = ({ navigation, route }) => {
   const [memberData, setMemberData] = useState(members)
   const [modalVisible, setModalVisible] = useState(false)
   const [chosenMember, setChosenMember] = useState({})
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const handleSetVisible = (data) => setModalVisible(data)
 
   const handleEditAka = (item) => {

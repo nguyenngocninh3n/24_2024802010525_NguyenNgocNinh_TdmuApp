@@ -4,12 +4,15 @@ import PostHandler from '../components/PostHandler'
 import { API } from '../../../api'
 import { POST_ACTION, POST_ATTACHMENT, POST_TYPE, RESPONSE_STATUS } from '../../../utils/Constants'
 import { useCustomContext } from '../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const EditPost = ({ navigation, route }) => {
   const { postID, groupID } = route.params
   const [postData, setPostData] = useState({})
   const [files, setFiles] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   useEffect(() => {
     API.getPostAPI(postID).then((data) => {
       if (data !== postData) {

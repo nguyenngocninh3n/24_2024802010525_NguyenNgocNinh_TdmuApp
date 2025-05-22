@@ -8,6 +8,8 @@ import { useCustomContext } from '../../../store'
 import { OpacityButtton } from '../../../components/ButtonComponent'
 import { FRIEND_STATUS, RESPONSE_STATUS } from '../../../utils/Constants'
 import GoBackComponent from '../../../components/GoBackComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const FriendItem = ({ item, onPress, onRemove, ownerID }) => {
   const [title, setTitle] = useState()
@@ -61,7 +63,8 @@ const FriendItem = ({ item, onPress, onRemove, ownerID }) => {
 }
 
 const PendingFriendScreen = ({ navigation, route }) => {
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [pendings, setPendings] = useState([])
 
   useEffect(() => {

@@ -17,12 +17,15 @@ import AvatarComponent from '../../../components/AvatarComponent'
 import SpaceComponent from '../../../components/SpaceComponent'
 import GoBackIcon from '../../../components/GoBackComponent/GoBackIcon'
 import { OpacityButtton } from '../../../components/ButtonComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const CreateGroup = ({ navigation, route }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedFriends, setSelectedFriends] = useState([])
   const [friends, setFriends] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [groupName, setGroupName] = useState('')
 
   const handleSetGroupName = (value) => setGroupName(value)

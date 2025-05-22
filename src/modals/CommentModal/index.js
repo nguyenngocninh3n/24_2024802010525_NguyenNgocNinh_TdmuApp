@@ -20,12 +20,15 @@ import { RESPONSE_STATUS } from '../../utils/Constants'
 import { useCustomContext } from '../../store'
 import { stat } from 'react-native-fs'
 import SocketClient from '../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
   const [commentData, setCommmentData] = useState([])
   const [parentData, setParentData] = useState([])
   const childData = useRef()
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
   const [editableItem, setEditableItem] = useState()

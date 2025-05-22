@@ -9,6 +9,8 @@ import SpaceComponent from '../../../components/SpaceComponent'
 import PollingModal from '../../../modals/PollingModal'
 import AvatarComponent from '../../../components/AvatarComponent'
 import SocketClient from '../../../socket'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const CountItem = ({ length }) => {
   return (
@@ -31,7 +33,8 @@ const CountItem = ({ length }) => {
 const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
   const [poll, setPoll] = useState()
   const [selectedOption, setSelectedOption] = useState(null)
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
 
   const [modalVisible, setModalVisible] = useState(false)
   const onShowModal = () => setModalVisible(true)

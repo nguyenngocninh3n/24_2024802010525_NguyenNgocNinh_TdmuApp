@@ -5,10 +5,13 @@ import { useEffect, useState } from 'react'
 import { API } from '../../../api'
 import AvatarComponent from '../../../components/AvatarComponent'
 import { useCustomContext } from '../../../store'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 export default function ParticipantView({ participantId, name }) {
   const { webcamStream, webcamOn, micOn } = useParticipant(participantId)
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [paticiantInfo, setParticiantInfo] = useState({})
   useEffect(() => {
     API.getUserByIdAPI({ uid: participantId }).then((data) => {

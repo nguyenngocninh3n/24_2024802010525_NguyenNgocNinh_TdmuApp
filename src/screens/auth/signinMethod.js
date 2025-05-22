@@ -22,7 +22,7 @@ const signOutWithGoogle = async () => {
   await configGoogleMethod()
   GoogleSignin.signOut()
     .then((result) => {
-      auth().signOut()
+    
       messaging().deleteToken()
     })
     .catch((error) => console.log('error when sign out', error))

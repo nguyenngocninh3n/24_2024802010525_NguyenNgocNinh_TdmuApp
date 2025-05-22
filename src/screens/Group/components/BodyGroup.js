@@ -9,11 +9,14 @@ import NewPostBox from '../../../components/NewPostBox'
 import SpaceComponent from '../../../components/SpaceComponent'
 import FlatListPost from '../../../components/FlatListPost'
 import FlatListPostGroup from '../../../components/FlatListPostGroup'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const BodyGroup = ({ group, groupID }) => {
   const [viewState, setViewState] = useState(false)
   const [groupUser, setGroupUser] = useState()
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
 
   useEffect(() => {
     if (groupID) {

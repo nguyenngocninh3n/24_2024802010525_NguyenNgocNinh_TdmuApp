@@ -7,12 +7,14 @@ import AvatarComponent from '../AvatarComponent'
 import { navigationRef, useCustomContext } from '../../store'
 import { API } from '../../api'
 import RowComponent from '../RowComponent'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const NewPostBox = ({ navigation, title, groupID, avatar }) => {
   const handleCreateNewPost = () => {
     navigationRef.navigate('NewPostScreen', {groupID})
   }
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
 
   return (
     <RowComponent style={styles.container} onPress={handleCreateNewPost}>

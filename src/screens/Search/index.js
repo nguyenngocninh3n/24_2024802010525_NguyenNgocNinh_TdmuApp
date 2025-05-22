@@ -9,6 +9,8 @@ import SearchTextItem from './components/SearchTextItem'
 import SearchUserItem from './components/SearchUserItem'
 import SearchGroupItem from './components/SearchGroupItem'
 import { useFocusEffect } from '@react-navigation/native'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const SearchItem = ({ item, onPress, onRemove }) => {
   switch (item.type) {
@@ -25,7 +27,8 @@ const SearchItem = ({ item, onPress, onRemove }) => {
 
 const SearchScreen = ({ navigation, route }) => {
   const [searchHistory, setSearchHistory] = useState()
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [search, setSearchResult] = useState(route.params?.search ?? '')
 
   const handleSearch = (value) => {

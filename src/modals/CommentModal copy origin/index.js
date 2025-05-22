@@ -19,10 +19,13 @@ import PopUpModal from '../PopUpModal'
 import { RESPONSE_STATUS } from '../../utils/Constants'
 import { useCustomContext } from '../../store'
 import { stat } from 'react-native-fs'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 
 const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
   const [commentData, setCommmentData] = useState([])
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
   const [editableItem, setEditableItem] = useState()

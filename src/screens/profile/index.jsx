@@ -4,9 +4,12 @@ import { API } from '../../api'
 import auth from '@react-native-firebase/auth'
 import OwnerProfile from './Owner'
 import UserProfile from './User'
+import { useSelector } from 'react-redux'
+import { selectCurrentUser } from '~/redux/slice/userSlice'
 const ProfileScreen = ({ navigation, route }) => {
   const userID = route?.params?.userID
-  const [state, dispatch] = useCustomContext()
+  const state = useSelector(selectCurrentUser)
+
   const ownerID = state?._id ?? auth().currentUser.uid
   const isOwnerProfile = !userID || ownerID === userID || userID === 'undefined'
 
