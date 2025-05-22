@@ -11,7 +11,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const MemberScreen = ({ navigation, route }) => {
   const { members, rawMembers, conventionID } = route.params
- console.log('render member screen ', conventionID)
   const handleClickMember = (userID) => {
     navigation.navigate('ProfileScreen', { userID: userID })
   }

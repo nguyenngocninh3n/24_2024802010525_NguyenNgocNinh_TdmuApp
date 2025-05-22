@@ -15,11 +15,9 @@ const BodyGroup = ({ group, groupID }) => {
   const [groupUser, setGroupUser] = useState()
   const [state, dispatch] = useCustomContext()
 
-  console.log('body group re-render: ', groupID)
   useEffect(() => {
     if (groupID) {
       API.getGroupMemberByUserIDAPI(groupID, state._id).then((response) => {
-        console.log('group usser response: ', response)
         if (response.status === RESPONSE_STATUS.SUCCESS) {
           if (group._id === SCOPE.PUBLIC) {
             if (response.data?.status !== MEMBER_STATUS.BLOCK) {

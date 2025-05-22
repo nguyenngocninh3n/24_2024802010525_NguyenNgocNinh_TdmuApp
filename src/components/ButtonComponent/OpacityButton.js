@@ -58,7 +58,8 @@ const OpacityButtton = ({
   return (
     <TouchableHighlight
       disabled={disable}
-      underlayColor={underlay ?? '#eee'}
+      underlayColor={underlay ?? '#ddd'}
+
       onPress={localValue.onPress}
       style={localValue.style}
     >

@@ -15,7 +15,6 @@ const groupScope = {
 }
 
 const HeaderGroup = ({ group, onShowModal }) => {
-  console.log('header group re-render')
   return (
     <View>
       <ImageBackground

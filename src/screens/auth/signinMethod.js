@@ -7,14 +7,13 @@ import messaging from '@react-native-firebase/messaging'
 
 async function getFCMToken() {
   const token = await messaging().getToken()
-  console.log('FCM Token:', token)
   // Lưu token lên server của bạn nếu cần
   return token
 }
 
 const configGoogleMethod = async () => {
   GoogleSignin.configure({
-    webClientId: '77194624099-c6bfhn2iencledrpov9b8169nfl2f157.apps.googleusercontent.com'
+    webClientId: '547666553180-vq4lmq8aiqervsr8636b4ek8ccjghum9.apps.googleusercontent.com'
   })
 }
 
@@ -25,54 +24,24 @@ const signOutWithGoogle = async () => {
     .then((result) => {
       auth().signOut()
       messaging().deleteToken()
-
     })
     .catch((error) => console.log('error when sign out', error))
 }
 
 async function signInWithGoogle() {
-  //config google signin method
   await configGoogleMethod()
-
-  // Check if your device supports Google Play
   await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true })
 
-  // Get the users ID token
-  let idToken = ''
-  let loginStatus = true
-  await GoogleSignin.signIn().then((data) => {
-    if (data.type === 'success') {
-      idToken = data.data.idToken
-      loginStatus = true
-    } else {
-      loginStatus = false
-    }
-  })
-
-  if (loginStatus) {
-    // console.log('idtoken: ', idToken)
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken)
-
-    console.log('login status: ', loginStatus)
-    // console.log('google creadential: ', googleCredential)
-    // Sign-in the user with the credential
-    return await auth()
-      .signInWithCredential(googleCredential)
-      .then(async (user) => {
-        const messagingToken = await messaging().getToken()
-        const userData = {
-          ...user.additionalUserInfo.profile,
-          _id: user.user.uid,
-          messagingToken
-        }
-        const newUser = await API.loginAPI({ data: userData })
+  return await GoogleSignin.signIn()
+    .then(async (data) => {
+      if (data.type === 'success') {
+        const fcmToken = await getFCMToken()
+        const userInfo = { ...data.data.user, fcmToken }
+        const newUser = await API.loginAPI({ data: userInfo })
         return newUser
-      })
-      .catch((error) => console.log('error when sigin with credential: ', error))
-  } else {
-    return 'cancel'
-  }
+      }
+    })
+    .catch((error) => console.log('error when google signin: ', error))
 }
 
 export { signInWithGoogle, signOutWithGoogle }

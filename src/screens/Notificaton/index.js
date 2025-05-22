@@ -8,7 +8,6 @@ import AvatarComponent from '../../components/AvatarComponent'
 import SpaceComponent from '../../components/SpaceComponent'
 
 const NotificationItem = ({item}) => {
-  console.log('item receive: ', item)
   return (
     <RowComponent style={{padding:8,backgroundColor:'#00f3'}}>
       <AvatarComponent size={48} source={API.getFileUrl(item.senderAvatar)} />
@@ -24,7 +23,6 @@ const NotificationScreen = () => {
 
   useEffect(() => {
     API.getNotification(state._id).then((response) => {
-      console.log('notification data: ', response)
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setNotificationData(response.data)
       }

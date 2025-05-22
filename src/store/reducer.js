@@ -6,7 +6,6 @@ const reducer = (state, action) => {
     case LOGIN:
       return { ...action.payload }
     case LOGOUT: {
-      console.log('into logout')
       signOutWithGoogle()
       return {}
     }

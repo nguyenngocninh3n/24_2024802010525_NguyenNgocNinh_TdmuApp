@@ -23,7 +23,6 @@ const BoxInfor = ({ title, value }) => {
 }
 const Header = ({ navigation, children, user, ownerID }) => {
   const isOwner = user._id === ownerID
-  console.log('isOwner: ', isOwner)
   const handleUpdateBio = () => {
     navigation.navigate('BioScreen', { user })
   }

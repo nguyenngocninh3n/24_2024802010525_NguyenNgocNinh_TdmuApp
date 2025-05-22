@@ -12,7 +12,6 @@ const EditGroupScreen = ({ navigation, route }) => {
   const [inputValue, setInputValue] = useState(editValue)
   const title = editType === 'name' ? 'tên nhóm' : 'mô tả'
   const handleInputChange = (newValue) => {
-    console.log('new value: ', newValue)
     setInputValue(newValue)
   }
 

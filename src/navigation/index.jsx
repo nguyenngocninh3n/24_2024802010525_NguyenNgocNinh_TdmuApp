@@ -1,8 +1,6 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import AuthNavigation from './auth'
-import MainNavigation from './main'
 import auth from '@react-native-firebase/auth'
 import { useEffect, useState } from 'react'
 // import ChattingScreen from '../screens/convenition/chatting'
@@ -59,6 +57,14 @@ import ProfileImageScreen from '../screens/Profile/ImageScreen'
 import ProfileVideoScreen from '../screens/Profile/VideoScreen'
 import ListGroupScreen from '../screens/Group/ListGroup'
 import SearchScreen from '../screens/Search'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { signOutWithGoogle } from '~/screens/auth/signinMethod'
+import AuthNavigator from './AuthNavigator'
+import HomeNavigator from './HomeNavigator'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentUser, userAction } from '~/redux/slice/userSlice'
 
 async function requestUserPermission() {
   await messaging().requestPermission()
@@ -79,7 +85,6 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
 notifee.onForegroundEvent(({ type, detail }) => {
   if (type === EventType.PRESS) {
-    console.log('type received: ', detail.notification.data)
     const notifyType = detail.notification.data?.type
     const notifyData = detail.notification.data
     if (notifyType === TYPE_SCREEN.PROFILE) {
@@ -105,7 +110,6 @@ notifee.onForegroundEvent(({ type, detail }) => {
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   if (type === EventType.PRESS) {
-    console.log('type received: ', detail.notification.data?.type)
     const receivedData = detail.notification.data
     const notifyType = receivedData?.type
     if (notifyType === TYPE_SCREEN.PROFILE) {
@@ -157,47 +161,36 @@ const linking = {
 }
 
 const Navigation = () => {
-  const [user, setUser] = useState()
-  const onListenAuthStateChanged = (state) => setUser(state)
   requestUserPermission()
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onListenAuthStateChanged)
-    return subscriber
-  }, [])
+  const dispatch = useDispatch()
+  const user = useSelector(selectCurrentUser)
 
-  const [state, dispatch] = useCustomContext()
-
-  useEffect(() => {
-    if (auth().currentUser) {
-      const id = auth().currentUser.uid
-      API.getUserByIdAPI({ uid: id }).then((data) => {
-        dispatch(actions.onLogin(data))
-      })
+  const handleAuth = async () => {
+    // await signOutWithGoogle().then(() => {
+    //   AsyncStorage.removeItem('user')
+    // })
+    const storageUser = await AsyncStorage.getItem('user')
+    const userInfo = JSON.parse(storageUser)
+    if (userInfo) {
+      // await API.getUserByIdAPI({ uid: userInfo._id }).then( (data) => {
+        dispatch(userAction.loginCurrentUser(userInfo))
+      
     }
+    // await AsyncStorage.setItem('user', '123')
+    const value = await AsyncStorage.getItem('user')
+  }
+  useEffect(() => {
+    handleAuth()
   }, [])
-
-  // useEffect(() => {
-  //   const getInitialURL = async () => {
-  //     const initialURL = await Linking.getInitialURL()
-  //     console.log('initialURL status: ', initialURL)
-  //     Linking.addEventListener('url', (event) => {
-  //       const url = event.url
-  //       console.log('receive url: ', url)
-  //       Linking.openURL(url)
-  //     })
-  //   }
-
-  //   getInitialURL()
-  // }, [])
 
   return (
     <NavigationContainer linking={linking} ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!user ? (
-          <Stack.Screen name="auth" component={AuthNavigation} />
+          <Stack.Screen name="auth" component={AuthNavigator} />
         ) : (
           <>
-            <Stack.Screen name="main" component={MainNavigation} />
+            <Stack.Screen name="home" component={HomeNavigator} />
             {/* PROFILE */}
             <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
             <Stack.Screen name="OwnerProfileScreen" component={OwnerProfile} />
@@ -213,7 +206,7 @@ const Navigation = () => {
 
             {/* SEARCH */}
             {/* <Stack.Screen name="SearchScreen" component={SearchResultScreen} /> */}
-            
+
             <Stack.Screen name="SearchScreen" component={SearchScreen} />
             <Stack.Screen name="SearchResultScreen" component={SearchResultScreen} />
 

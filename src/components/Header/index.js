@@ -2,6 +2,7 @@ import { View, Text, TextInput, Image } from 'react-native'
 import React from 'react'
 import RowComponent from '../RowComponent'
 import AntDesign from 'react-native-vector-icons/AntDesign'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import SpaceComponent from '../SpaceComponent'
 import { OpacityButtton } from '../ButtonComponent'
 import { navigate } from '../../store'
@@ -23,18 +24,22 @@ const Header = ({ navigation }) => {
         paddingHorizontal: 24,
         paddingTop: 12,
         paddingBottom: 12,
-        borderBottomWidth:3,
-        borderBottomColor:'#3334'
+        borderBottomWidth: 1,
+        borderBottomColor: '#3334'
       }}
     >
-      <Image source={require('../../assets/images/logo_tdmu.png')} style={{width:42, height:42, margin:0, padding:0}}  />
+      <Image
+        source={require('../../assets/images/logo_tdmu.png')}
+        style={{ width: 42, height: 42, margin: 0, padding: 0 }}
+      />
       <RowComponent>
         <OpacityButtton
           onPress={handleClickSearch}
-          children={<AntDesign name="search1" size={24} />}
+          children={<Ionicons name="search" size={30} />}
         />
         <SpaceComponent width={24} />
         <OpacityButtton
+          padding={2}
           onPress={handleClickConvention}
           children={<AntDesign name="message1" size={24} />}
         />

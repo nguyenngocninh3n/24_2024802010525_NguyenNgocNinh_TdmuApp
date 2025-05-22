@@ -13,7 +13,6 @@ const ChatList = React.memo(({ conventionID, onLongPress, search }) => {
   const [chatData, setChatData] = useState([])
   const [members, setMembers] = useState(new Map())
   const [ownerID, setOwnerID] = useState(state._id)
-  console.info('chatlist rerender')
   const [offsets, setOffsets] = useState([])
 
   useEffect(() => {
@@ -33,7 +32,6 @@ const ChatList = React.memo(({ conventionID, onLongPress, search }) => {
     SocketClient.socket.on('convention', (value) => {
       if (value.action === MESSAGE_ACTION.ADD) {
         setChatData((pre) => {
-          console.log('into set chat data: ADD MESSAGE')
           const { _id, senderID, message, type, createdAt, updatedAt } = value
           const pollID = value?.pollID
           const newData = { _id, senderID, message, type, createdAt, updatedAt, pollID: pollID }
@@ -67,8 +65,6 @@ const ChatList = React.memo(({ conventionID, onLongPress, search }) => {
 
   useEffect(() => {
     if (search && offsets.length > 0) {
-      console.info('search value: ', search)
-      console.log('offsets: ', offsets)
       handleScrollTo(search)
     }
   }, [search, offsets])

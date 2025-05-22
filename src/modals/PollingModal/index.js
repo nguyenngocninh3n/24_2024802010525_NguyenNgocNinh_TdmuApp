@@ -35,10 +35,8 @@ const PollingModal = ({
     const origin = poll.results.filter((item) => item.userID === ownerID)?.at(0)?.optionIDs
 
     const currentMember = members?.get(state._id) ?? state._id
-    console.log('current member: ', currentMember)
     const displayName = currentMember.aka || currentMember.userName
     if (!origin) {
-      console.log('addpolling')
       const targetID = conventionID ?? postID
       const customResult = { userID: ownerID, optionIDs: ownerChosen }
       API.addPolling(pollID, customResult, targetID).then((response) => {
@@ -57,12 +55,10 @@ const PollingModal = ({
             }
           }).then(response => {
             onCancle()
-            console.log('emit updpate pollling: create')
             SocketClient.socket.emit('updatePolling', { pollID, data: customResult, targetID })
           })
           })
     } else if (ownerChosen.sort((a, b) => a > b) !== origin?.sort((a, b) => a > b)) {
-      console.log('update polling')
       const targetID = conventionID ?? postID
       const customResult = { userID: ownerID, optionIDs: ownerChosen }
       API.updatePolling(pollID, customResult, targetID).then((response) => {
@@ -80,7 +76,6 @@ const PollingModal = ({
           }
         })
         onCancle()
-        console.log('emit update polling')
         SocketClient.socket.emit('updatePolling', { pollID, data: customResult, targetID })
       })
     }

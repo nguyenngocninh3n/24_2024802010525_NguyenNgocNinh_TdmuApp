@@ -12,7 +12,6 @@ const PostComponent = ({ item, ownerID }) => {
 
   useEffect(()=> {
     API.getUserByIdAPI({uid:item.userID}).then(data => {
-      console.log('userdata in post: ', data)
       data && setUserData(data)
     })
   }, [])

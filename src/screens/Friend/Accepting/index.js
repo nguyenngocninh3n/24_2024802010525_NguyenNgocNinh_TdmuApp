@@ -81,7 +81,6 @@ const AcceptingFriendScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     API.getAcceptingFriend(state._id).then((response) => {
-      console.log('data: ', response)
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setSuggests(response.data.data)
       }
@@ -96,7 +95,6 @@ const AcceptingFriendScreen = ({ navigation, route }) => {
     })
   }
   const handleAccept = (userID) => {
-    console.log('handle accept friend: ', userID)
   }
   return (
     <View style={{ paddingHorizontal: 12, backgroundColor: '#fff', flex: 1 }}>

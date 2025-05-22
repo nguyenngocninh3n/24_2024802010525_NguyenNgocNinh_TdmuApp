@@ -12,10 +12,8 @@ import { REACTION_TYPE } from '../../utils/Constants'
 const FlatListPostNewFeed = ({ navigation }) => {
   const [postsData, setPostsData] = useState([])
   const [state, dispatch] = useCustomContext()
-  console.log('flatlistposts newfeed re-render')
   useEffect(() => {
     API.getNewFeedPostsAPI(state._id).then((response) => {
-      console.log(response)
       setPostsData(response)
     })
   }, [])
@@ -23,12 +21,10 @@ const FlatListPostNewFeed = ({ navigation }) => {
   // ON LISTEN REACTION ACTION
   // useEffect(() => {
   //   const event_name = REACTION_TYPE.POST+'reaction'
-  //   console.log('event_name on socket listion reaction: ', event_name)
   //   SocketClient.socket.on(event_name, (data) => {
   //     setPostsData((pre) => {
   //       const postList = [...pre]
   //       const filterIndex = postList.findIndex((item) => item._id === data.postID)
-  //       console.info('filterIndex: ', filterIndex)
   //       if(filterIndex !== -1) {
   //         postList[filterIndex].reactionsCount += data.number
   //       }
@@ -44,12 +40,10 @@ const FlatListPostNewFeed = ({ navigation }) => {
   // ON LISTEN COMMENT ACTION
   // useEffect(() => {
   //   const event_name = 'comment_count'
-  //   console.log('event_name on socket listion reaction: ', event_name)
   //   SocketClient.socket.on(event_name, (data) => {
   //     setPostsData((pre) => {
   //       const postList = [...pre]
   //       const filterIndex = postList.findIndex((item) => item._id === data.postID)
-  //       console.log('filter index: ', filterIndex)
   //       postList[filterIndex].commentsCount += data.number
   //       return postList
   //     })
@@ -128,7 +122,6 @@ const FlatListPostNewFeed = ({ navigation }) => {
 
     SocketClient.socket.on('emitCommentPostChange', data => {
       setPostsData(pre => {
-        console.info('emitCommentPostChange listen: ', pre)
         const customArr = [...pre]
         const filterIndex = customArr.findIndex(item => item._id === data.post._id)
         if (filterIndex !== -1) {

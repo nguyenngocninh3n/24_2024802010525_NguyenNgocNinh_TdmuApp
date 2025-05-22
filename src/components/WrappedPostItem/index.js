@@ -11,9 +11,7 @@ import AvatarComponent from '../AvatarComponent'
 import PostItem from '../PostItem'
 
 const getGroupName = async (groupID) => {
-  console.log('groupID: ', groupID)
   const name = await API.getGroupByIDAPI(groupID).then((response) => response.data.name)
-  console.log('response in get group name: ', name)
   return name
 }
 

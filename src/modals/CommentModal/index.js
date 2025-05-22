@@ -25,7 +25,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
   const [commentData, setCommmentData] = useState([])
   const [parentData, setParentData] = useState([])
   const childData = useRef()
-  console.log('COMMENT model re-render')
   const [state, dispatch] = useCustomContext()
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
@@ -36,7 +35,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
     // if (commentData.length === 0) {
     API.getPostCommentsAPI(postID).then((data) => {
       if (data.length) {
-        console.log('call api: ', data.length)
         setCommmentData(data)
         handleRenderCommentData(data)
       }
@@ -66,12 +64,10 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
   }, [])
 
   const handleSocketOn = () => {
-    // console.log('socket status: ', SocketClient.socket.)
     if (!SocketClient.socket) {
       console.warn('socket is not initial')
     }
     SocketClient.socket.on('emitAddComment', (data) => {
-      console.log('on listen comment add: ')
       handleSetParentData(data.comment)
     })
 
@@ -79,8 +75,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
       setParentData((pre) => {
         const customData = [...pre]
         const filterIndex = customData.findIndex((item) => item._id === data.comment._id)
-        console.info('filter index eidt comment: ', filterIndex)
-        
         if (filterIndex !== -1) {
 
           customData[filterIndex] = data.comment
@@ -90,11 +84,8 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
     })
 
     SocketClient.socket.on('emitDeleteComment', (data) => {
-      console.info('on listion delete comment')
       setParentData((pre) => {
-        console.info('pre length before: ', pre.length)
         const newArr = pre.filter((item) => item._id !== data.commentID)
-        console.info('pre length after: ', newArr.length)
         return newArr
       })
     })
@@ -127,8 +118,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
   const onViewChildItem = (parentID) => {
     setParentData((pre) => {
       const parentIndex = pre.findIndex((item) => item._id === parentID)
-      console.log('parentIndex: ', parentIndex)
-      console.log('child parent: ', parentID, ' ', childData)
       const newItem = [
         ...pre.slice(0, parentIndex + 1),
         ...childData.current[parentID],
@@ -146,7 +135,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
       const editableIndex = localArr.findIndex(
         (item) => item._id === data.rootParentID || item.rootParentID === data.rootParentID
       )
-      console.log('index: ', editableIndex)
       customArr.splice(pre.length - editableIndex, 0, {
         ...data,
         parentUserName: replyItem?.userName,
@@ -157,7 +145,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
   }
 
   const handleSendComment = (value) => {
-    console.log('reply item: ', replyItem)
     const customData = {
       postID: postID,
       parentID: replyItem?._id ? replyItem._id : null,
@@ -171,7 +158,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
     }
     API.storeCommentAPI(customData)
       .then((data) => {
-        console.log('data: ', data._id, ' ', data.parentID)
         // handleSetParentData(data)
       })
       .catch((error) => {
@@ -245,7 +231,6 @@ const CommentModal = React.memo(({ modalVisible, onClose, postID }) => {
     setReplyItem({ ...item, focus: true })
   }
   const handleCanclePreReplyComment = () => {
-    console.log('cancle replyItem')
     setReplyItem(null)
   }
 

@@ -1,15 +1,14 @@
-import Navigation from './src/navigation'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { actions, useCustomContext,reducer, Provider } from './src/store/'
-
+import React from 'react'
+import Navigation from '~/navigation'
+import { reduxStore } from '~/redux/store'
+import { Provider } from 'react-redux'
 const App = () => {
-
-
   return (
     <GestureHandlerRootView>
-     <Provider>
-     <Navigation />
-     </Provider>
+      <Provider store={reduxStore}>
+        <Navigation />
+      </Provider>
     </GestureHandlerRootView>
   )
 }

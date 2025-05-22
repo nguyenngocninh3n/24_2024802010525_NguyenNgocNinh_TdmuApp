@@ -10,22 +10,21 @@ import {
 } from 'react-native'
 import { signInWithGoogle } from './signinMethod'
 
-import { actions, useCustomContext } from '../../store'
-import SpaceComponent from '../../components/SpaceComponent'
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
+import { useDispatch } from 'react-redux'
+import SpaceComponent from '~/components/SpaceComponent'
+import { userAction } from '~/redux/slice/userSlice'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LoginScreen = () => {
-  const [state, dispatch] = useCustomContext()
+  const dispatch = useDispatch()
 
   async function handleLogin() {
-    //Đăng nhập firebase google -> tạo tài khoản trên server và trả về tài khoản user
     const userLogin = await signInWithGoogle()
-    console.log('user login in login screen: ', userLogin)
     if (userLogin === 'cancel') {
-      console.log('Cancel')
     } else if (userLogin) {
       ToastAndroid.show('Đăng nhập thành công!', ToastAndroid.LONG)
-      dispatch(actions.onLogin(userLogin))
+      await AsyncStorage.setItem('user', JSON.stringify(userLogin))
+      dispatch(userAction.loginCurrentUser(userLogin))
     } else {
       ToastAndroid.show('Tài khoản không có trong dữ liệu của trường!', ToastAndroid.LONG)
     }

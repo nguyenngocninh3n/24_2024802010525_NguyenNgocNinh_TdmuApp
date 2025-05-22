@@ -30,22 +30,20 @@ const configureBackgroundFetch = async (ownerID) => {
     },
     async (taskId) => {
       console.log('[BackgroundFetch] Task started:', taskId)
-      console.log('socket active is: ', SocketClient.socket.connected)
       try {
         if (!SocketClient.socket.connected) {
-          // Xử lý dữ liệu (ở đây chỉ log ra console)
           SocketClient.runSocketClient(ownerID)
 
           // Hoàn thành tác vụ
           BackgroundFetch.finish(taskId)
         }
       } catch (error) {
-        console.error('[BackgroundFetch] Fetch failed:', error)
+        console.log('[BackgroundFetch] Fetch failed:', error)
         BackgroundFetch.finish(taskId)
       }
     },
     (error) => {
-      console.error('[BackgroundFetch] Failed to configure:', error)
+      console.log('[BackgroundFetch] Failed to configure:', error)
     }
   )
 

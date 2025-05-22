@@ -29,7 +29,6 @@ const ChattingSearchScreen = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false)
   const [pollModalVisible, setPollModalVisible] = useState(false)
   const [selectionItem, setSelectionItem] = useState({})
-  console.log('chatting screen re-render')
   const [searchStatus, setSearchStatus] = useState(false)
   const setDataForConvention = (data) => {
     setConventionID(data._id)
@@ -114,7 +113,6 @@ const ChattingSearchScreen = ({ navigation, route }) => {
   }
 
   useEffect(() => {
-    console.log('conventionID change')
       getConventionByID(conventionID)
   }, [conventionID])
 
@@ -175,7 +173,6 @@ const ChattingSearchScreen = ({ navigation, route }) => {
 
   const onUptoSearch = () => {
     setSearch((pre) => {
-      console.log('set search: ', pre)
       if (pre.currentIndex > 0) {
         return { ...pre, currentIndex: pre.currentIndex - 1 }
       }

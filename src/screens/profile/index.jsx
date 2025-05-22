@@ -5,7 +5,6 @@ import auth from '@react-native-firebase/auth'
 import OwnerProfile from './Owner'
 import UserProfile from './User'
 const ProfileScreen = ({ navigation, route }) => {
-  console.log('route params in profile screen: ', route.params?.userID)
   const userID = route?.params?.userID
   const [state, dispatch] = useCustomContext()
   const ownerID = state?._id ?? auth().currentUser.uid

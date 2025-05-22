@@ -4,8 +4,6 @@ import { navigationRef } from '../store'
 const startLocalNotification = ({ownerID, conventionID, title, message, senderAvatar, senderID, data }) => {
   const currentNavigation = navigationRef.current.getCurrentRoute()
   const isOnConvention = currentNavigation.name === 'ChattingScreen' && currentNavigation.params.conventionID === conventionID
-  console.log('is on convention', isOnConvention)
-  console.log('params received: ', conventionID, ' , ', title, ' , ', message, ' , ', senderAvatar, ' , ', senderID, ' , ', data)
   !isOnConvention && senderID !== ownerID && PushNotification.channelExists(conventionID, function (isExist) {
     if (!isExist) {
       console.log('channel not exist: ')
@@ -20,7 +18,6 @@ const startLocalNotification = ({ownerID, conventionID, title, message, senderAv
           vibrate: true // (optional) default: true. Creates the default vibration patten if true.
         },
         (created) => {
-          // console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
           PushNotification.localNotification({
             channelId: conventionID, //this must be same with channelid in createchannel
             title,

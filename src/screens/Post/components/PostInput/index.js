@@ -9,7 +9,6 @@ const PostInput = forwardRef(function (props, ref) {
   }, [props.value])
 
   const handleTextChange = (newValue) => {
-    console.log('new value: ', newValue)
     setInputValue(newValue)
     ref.current.value = newValue
   }

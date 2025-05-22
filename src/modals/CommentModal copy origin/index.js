@@ -22,7 +22,6 @@ import { stat } from 'react-native-fs'
 
 const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
   const [commentData, setCommmentData] = useState([])
-  console.log('comment modal re-render')
   const [state, dispatch] = useCustomContext()
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
@@ -33,7 +32,6 @@ const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
     if (modalVisible) {
       API.getPostCommentsAPI(postID).then((data) => {
         if (data) {
-          console.log('call api: ', data.length)
           setCommmentData(handleRenderData(data))
         }
       })
@@ -79,7 +77,6 @@ const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
     }
     API.storeCommentAPI(customData)
       .then((data) => {
-        console.log('data: ', data._id, ' ', data.parentID)
         setCommmentData((pre) => {
           const customArr = [...pre]
           const localArr = [].concat(pre)
@@ -87,7 +84,6 @@ const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
           const editableIndex = localArr.findIndex(
             (item) => item._id === data.parentID || item.parentID === data.parentID
           )
-          console.log('index: ', editableIndex)
           customArr.splice(pre.length - editableIndex, 0, {
             ...data,
             parentUserName: replyItem?.userName,
@@ -168,7 +164,6 @@ const CommentModelOrigin = React.memo(({ modalVisible, onClose, postID }) => {
   }
 
   const handleCanclePreReplyComment = () => {
-    console.log('cancle replyItem')
     setReplyItem(null)
   }
 

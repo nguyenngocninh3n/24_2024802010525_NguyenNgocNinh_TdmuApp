@@ -14,12 +14,10 @@ const SearchUserScreen = ({ navigation, route }) => {
   const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState([])
 
-  console.log('search user screen re-render: ', search)
 
   useFocusEffect(
     useCallback(() => {
       API.searchUserAPI(state._id, search).then((response) => {
-        console.log('response in search user: ', response)
         if (response.status === RESPONSE_STATUS.SUCCESS) {
           response.data && setUserData(response.data)
           setIsLoading(false)

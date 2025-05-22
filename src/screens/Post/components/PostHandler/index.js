@@ -1,40 +1,24 @@
-import {
-  View,
-  TouchableOpacity,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  ScrollView,
-  Alert
-} from 'react-native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import SpaceComponent from '../../../../components/SpaceComponent'
-import ImageLibrary from '../../../../components/ImageLibrary'
-import MixedViewing from '../../../../components/MixedViewing'
-import AvatarComponent from '../../../../components/AvatarComponent'
-import PostInput from '../PostInput'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import RNFS from 'react-native-fs'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import GoBackIcon from '~/components/GoBackComponent/GoBackIcon'
 import { API } from '../../../../api'
 import GlobalStyle from '../../../../assets/css/GlobalStyle'
+import AvatarComponent from '../../../../components/AvatarComponent'
 import OpacityButtton from '../../../../components/ButtonComponent/OpacityButton'
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import RNFS from 'react-native-fs'
-import {
-  MESSAGE_TYPE,
-  POLL_TYPE,
-  POST_ATTACHMENT,
-  RESPONSE_STATUS,
-  SCOPE
-} from '../../../../utils/Constants'
-import { navigationRef, useCustomContext } from '../../../../store'
-import DropDownRole from '../DropDownRole'
+import ImageLibrary from '../../../../components/ImageLibrary'
+import MixedViewing from '../../../../components/MixedViewing'
 import RowComponent from '../../../../components/RowComponent'
-import PollModal from '../../../../modals/PollModal'
-import PollScreen from '../../../convenition/Vote/Show'
+import SpaceComponent from '../../../../components/SpaceComponent'
+import { useCustomContext } from '../../../../store'
+import { POLL_TYPE, POST_ATTACHMENT, RESPONSE_STATUS, SCOPE } from '../../../../utils/Constants'
 import CreatePollScreen from '../../../convenition/Vote'
+import DropDownRole from '../DropDownRole'
+import PostInput from '../PostInput'
+import TextComponent from '~/components/TextComponent'
 
-const PostHandler = ({ postData, files, onSubmit, editable, groupID }) => {
-  console.log('post handler re-render: ', SCOPE.PUBLIC)
+const PostHandler = ({ postData = {}, type, files, onSubmit, editable, groupID }) => {
   const [state, dispatch] = useCustomContext()
   const [atttachments, setAttachments] = useState(files)
   const [scopePost, setScopePost] = useState(SCOPE.PUBLIC)
@@ -68,10 +52,8 @@ const PostHandler = ({ postData, files, onSubmit, editable, groupID }) => {
       }
     }
     if (editable) {
-      console.log('scope post  edit: ', scopePost)
       onSubmit(state._id, customAttachments, postInputRef.current.value, scopePost, pollID)
     } else {
-      console.log('scope post not edit: ', scopePost)
       onSubmit(state._id, customAttachments, postInputRef.current.value, scopePost, pollID)
     }
   }
@@ -89,7 +71,6 @@ const PostHandler = ({ postData, files, onSubmit, editable, groupID }) => {
   const onPollChange = (obj) => setPollInfo((pre) => ({ ...pre, ...obj }))
   const onPollClear = () => setPollInfo(null)
   const handleCreatePollAndPost = async () => {
-    console.log('pollInfo: ', pollInfo)
     if (!pollInfo?.question?.trim()) {
       return Alert.alert('Lỗi', 'Vui lòng nhập câu hỏi.')
     }
@@ -128,14 +109,15 @@ const PostHandler = ({ postData, files, onSubmit, editable, groupID }) => {
   return (
     <ScrollView style={GlobalStyle.container}>
       <View style={styles.header}>
-        <TouchableOpacity activeOpacity={0.6} onPress={() => navigationRef.goBack()}>
-          <AntDesign name="leftcircleo" color="#13f" size={30} />
-        </TouchableOpacity>
+        <RowComponent>
+          <GoBackIcon style={{ paddingLeft: 8, paddingRight: 12 }} />
+          <TextComponent fontWeight={'500'} text={type === 'add' ? 'Tạo bài viết' : 'Chỉnh sửa'} />
+        </RowComponent>
         <OpacityButtton
           onPress={handleCheckBeforeSubmit}
           activeOpacity={0.6}
           title="Đăng"
-          textStyle={{ fontSize: 22, marginRight: 20, color: 'blue' }}
+          textStyle={{ fontSize: 20, fontWeight: '500', paddingHorizontal:8, color: 'blue' }}
         />
       </View>
 
@@ -153,16 +135,18 @@ const PostHandler = ({ postData, files, onSubmit, editable, groupID }) => {
       <PostInput ref={postInputRef} value={postData.content} />
       <View style={{ flexDirection: 'row-reverse' }}>
         <SpaceComponent width={16} />
-        <ImageLibrary callback={handleChosenFiles} type={POST_ATTACHMENT.MIX} />
+        <ImageLibrary iconColor={'gray'} callback={handleChosenFiles} type={POST_ATTACHMENT.MIX} />
         <SpaceComponent width={4} />
         {!postData?.pollID && (
-          <EvilIcons
-            style={{ paddingBottom: 8 }}
-            name="chart"
-            size={46}
-            color={'blue'}
-            onPress={onShowPollModal}
-          />
+          <OpacityButtton onPress={onShowPollModal}>
+            <EvilIcons
+              style={{ paddingBottom: 8 }}
+              name="chart"
+              size={46}
+              color={'gray'}
+              onPress={onShowPollModal}
+            />
+          </OpacityButtton>
         )}
       </View>
       <SpaceComponent height={48} />
@@ -188,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 3,
     borderBottomWidth: 1,
     borderBottomColor: '#d8D9DB'
   },

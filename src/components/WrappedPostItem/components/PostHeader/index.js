@@ -13,7 +13,6 @@ import { OpacityButtton } from '../../../ButtonComponent'
 
 const PostHeader = ({ item, ownerID, groupID, avatarSize, textSize, showGroup }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  console.log('groupID in post header: ', groupID)
   const handleCloseModal = () => setModalVisible(false)
   const handleShowModal = () => setModalVisible(true)
   const handleToProfile = () => navigationRef.navigate('ProfileScreen', {userID: item.userID, ownerID})

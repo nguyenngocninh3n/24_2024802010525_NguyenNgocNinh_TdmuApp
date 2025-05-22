@@ -10,7 +10,6 @@ const EditPost = ({ navigation, route }) => {
   const [postData, setPostData] = useState({})
   const [files, setFiles] = useState([])
   const [state, dispatch] = useCustomContext()
-  console.log('group id: ', groupID)
   useEffect(() => {
     API.getPostAPI(postID).then((data) => {
       if (data !== postData) {
@@ -28,12 +27,10 @@ const EditPost = ({ navigation, route }) => {
   }, [])
 
   const handleSubmit = (ownerID, attachments, value, scope, pollID) => {
-    console.log('submit edit post: ', scope)
     const isValueChanged = !(value === postData.content)
     const isAttachmentsChanged = !(JSON.stringify(files) === JSON.stringify(attachments))
     var newPostData = {}
     if (isValueChanged && isAttachmentsChanged) {
-      console.log('change all')
       newPostData = {
         userID: ownerID,
         content: value,
@@ -42,7 +39,6 @@ const EditPost = ({ navigation, route }) => {
         action: POST_ACTION.UPDATE_ALL
       }
     } else if (isAttachmentsChanged) {
-      console.log('only change attachments')
       newPostData = {
         userID: ownerID,
         attachments: attachments,
@@ -50,7 +46,6 @@ const EditPost = ({ navigation, route }) => {
         scope: scope
       }
     } else if (isValueChanged || scope !== postData.scope) {
-      console.log('only change content: ', scope)
       newPostData = {
         userID: ownerID,
         content: value,
@@ -58,7 +53,6 @@ const EditPost = ({ navigation, route }) => {
         scope: scope
       }
     } else {
-      console.log('dont change')
       ToastAndroid.show('Chỉnh sửa bài viết thành công', ToastAndroid.SHORT)
       navigation.goBack()
       return
@@ -76,7 +70,6 @@ const EditPost = ({ navigation, route }) => {
     })
   }
 
-  console.log('edit post re-render: ', postID, ' ', postData?.scope)
 
   return <PostHandler onSubmit={handleSubmit} postData={postData} files={files} groupID={groupID} />
 }

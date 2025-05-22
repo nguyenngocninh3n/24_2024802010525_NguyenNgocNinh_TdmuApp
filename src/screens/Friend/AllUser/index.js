@@ -22,15 +22,12 @@ const FriendItem = ({ item, onPress }) => {
 }
 
 const AllUserScreen = ({userID, ownerID }) => {
-  // console.log('route.params: ', route.params)
   // const { userID } = route.params
   const [friends, setFriends] = useState({})
   const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     API.getListFriend({ userID: userID }).then((data) => {
-      console.log('gia tri data là: ', data)
-
       if (data.status === RESPONSE_STATUS.SUCCESS) {
         setFriends(data.data)
       }

@@ -16,7 +16,6 @@ configureReanimatedLogger({
 })
 const ListGroupScreen = ({ navigation, route }) => {
   const userID = route.params.userID
-  console.log('Listgroupscreen re-render: ', userID)
   const [groups, setGroups] = useState([])
 
   useEffect(() => {
@@ -27,8 +26,6 @@ const ListGroupScreen = ({ navigation, route }) => {
     // })
 
     API.getGroupsByUserIDAPI(userID).then((response) => {
-      console.log('response getGroupsByUserIDApi: ', response)
-      console.log('resposne: ', response)
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setGroups(response.data)
       }

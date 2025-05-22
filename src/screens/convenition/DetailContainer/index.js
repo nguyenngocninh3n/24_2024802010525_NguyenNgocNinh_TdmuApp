@@ -36,7 +36,6 @@ const DetailContainerScreen = ({ navigation, route }) => {
       conventionData.name ||
       conventionData.members.find((item) => item._id !== state._id).aka ||
       conventionData.members.find((item) => item._id !== state._id).userName
-    console.log('detail container name: ', customName)
     return customName
   }
 

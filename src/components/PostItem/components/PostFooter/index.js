@@ -48,7 +48,6 @@ const PostFooter = ({ postID, ownerID, item }) => {
     }
     API.updateReactionOfUserByTargetAPI(customData)
       .then((data) => {
-        console.log('update reaction: ', data)
         setReaction(data)
       })
       .catch((error) => {

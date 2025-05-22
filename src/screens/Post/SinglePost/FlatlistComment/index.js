@@ -17,7 +17,6 @@ import PopUpModal from '../../../../modals/PopUpModal'
 
 const FlatListComment = ({ postID }) => {
   const [commentData, setCommmentData] = useState([])
-  console.log('comment modal re-render')
   const [state, dispatch] = useCustomContext()
   const [editableModal, setEditableModal] = useState(false)
   const [deletableModal, setDeletableModal] = useState(false)
@@ -26,7 +25,6 @@ const FlatListComment = ({ postID }) => {
   useEffect(() => {
     API.getPostCommentsAPI(postID).then((data) => {
       if (data) {
-        console.log('call api: ', data.length)
         setCommmentData(handleRenderData(data))
       }
     })
@@ -70,7 +68,6 @@ const FlatListComment = ({ postID }) => {
     }
     API.storeCommentAPI(customData)
       .then((data) => {
-        console.log('data: ', data._id, ' ', data.parentID)
         setCommmentData((pre) => {
           const customArr = [...pre]
           const localArr = [].concat(pre)
@@ -78,7 +75,6 @@ const FlatListComment = ({ postID }) => {
           const editableIndex = localArr.findIndex(
             (item) => item._id === data.parentID || item.parentID === data.parentID
           )
-          console.log('index: ', editableIndex)
           customArr.splice(pre.length - editableIndex, 0, {
             ...data,
             parentUserName: replyItem?.userName,
@@ -159,7 +155,6 @@ const FlatListComment = ({ postID }) => {
   }
 
   const handleCanclePreReplyComment = () => {
-    console.log('cancle replyItem')
     setReplyItem(null)
   }
 

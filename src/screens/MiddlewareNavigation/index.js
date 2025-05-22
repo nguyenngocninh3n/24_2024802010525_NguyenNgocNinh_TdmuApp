@@ -11,7 +11,6 @@ const MiddleWareNavigationScreen = ({ navigation, route }) => {
   const [ownerInfo, setOwnerInfo] = useState()
   useEffect(() => {
     API.getUserByIdAPI({ uid: ownerID }).then((response) => {
-      console.log('giá trị của user là: ', conventionID)
       setOwnerInfo(response)
     })
   }, [])

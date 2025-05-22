@@ -29,18 +29,14 @@ const AddMemberScreen = ({ navigation, route }) => {
     API.getListFriend({ userID: state._id }).then((data) => {
       if (data) {
         const uids = route.params.uids
-        console.log('uids: ', uids)
-        console.log('friend uids: ', data.data.map( item => item._id))
         const listFriend = data.data.filter((item) => {
             const checkIndex = uids.findIndex(uid => uid === item._id)
-            console.log('find index of ', item.userName, ' ', checkIndex)
             return (item.status === FRIEND_STATUS.FRIEND && checkIndex === -1)
         })
         setFriends(listFriend)
       }
     })
   }, [])
-  console.log('create group re-render')
 
   // Lọc danh sách bạn bè theo từ khóa tìm kiếm
   const filteredFriends = searchQuery

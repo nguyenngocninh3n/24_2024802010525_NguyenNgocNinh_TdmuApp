@@ -1,4 +1,4 @@
-package com.tdmuapp
+package com.myapp
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

@@ -9,13 +9,11 @@ import FlatlistMembers from './component/FlatlistMembers'
 
 
 const GroupMemberScreen = ({ navigation, route }) => {
-  console.log('group member screen re-render')
   const { groupID, groupName } = route.params
   const [groupMembers, setGroupMembers] = useState([])
 
   useEffect(() => {
     API.getGroupMembersByIDAPI(groupID).then((response) => {
-      console.log('response: ', response)
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setGroupMembers(response.data)
       }

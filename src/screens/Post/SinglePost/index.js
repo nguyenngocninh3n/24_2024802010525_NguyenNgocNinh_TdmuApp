@@ -17,7 +17,6 @@ const icon = {
 const SinglePostScreen = ({ navigation, route }) => {
   const [post, setPost] = useState()
   const { ownerID, postID } = route.params
-  console.log('single post re-render: ', ownerID, ' ', postID)
   const [reaction, setReaction] = useState()
 
   useEffect(() => {

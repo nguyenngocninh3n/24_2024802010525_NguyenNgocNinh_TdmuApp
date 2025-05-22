@@ -8,6 +8,7 @@ const PopUpModal = ({ modalVisible, title, subtitle, onCancle, onSubmit }) => {
     <Modal
       animationType="slide"
       transparent={true}
+      
       visible={modalVisible}
       onRequestClose={() => {
         onCancle
@@ -46,14 +47,16 @@ const PopUpModal = ({ modalVisible, title, subtitle, onCancle, onSubmit }) => {
 
 const styles = StyleSheet.create({
   pressableContainer: {
-    flex:1
+    flex:1,
+    backgroundColor: 'rgba(0,0,0,0.2)'
+
   },
 
   pressableBody: {
     marginTop: '50%',
 
     backgroundColor: '#fff',
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     borderRadius: 20,
     borderWidth:3,
     borderCurve:'continuous',

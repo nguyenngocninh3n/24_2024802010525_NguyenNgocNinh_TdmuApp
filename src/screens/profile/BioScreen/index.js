@@ -13,13 +13,11 @@ const BioScreen = ({ navigation, route }) => {
   const [inputValue, setInputValue] = useState(user.bio)
 
   const handleInputChange = (newValue) => {
-    console.log('new value: ', newValue)
     setInputValue(newValue)
   }
 
   const handleUpdateBio = () => {
     API.updateUserBioAPI(user._id, inputValue).then((data) => {
-      console.log('response data: ', data)
       if (data === RESPONSE_STATUS.SUCCESS) {
         ToastAndroid.show('Cập nhật tiểu sử thành công', ToastAndroid.SHORT)
         navigation.goBack()

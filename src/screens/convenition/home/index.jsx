@@ -2,8 +2,8 @@ import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import SpaceComponent from '../../../components/SpaceComponent'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import ConventionNavigator from '../../../navigation/convention'
 import RowComponent from '../../../components/RowComponent'
+import ConventionNavigator from '~/navigation/ConventionNavigator'
 
 const SearchComponent = ({ navigation }) => {
   const handleClickSearch = () => {

@@ -14,12 +14,10 @@ const SearchGroupScreen = ({ navigation, route }) => {
   const [userData, setUserData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  console.log('search groupscreen re-render: ', search)
 
   useFocusEffect(
     useCallback(() => {
       API.searchGroupAPI(state._id, search).then((response) => {
-        console.log('response in search group: ', response)
         if (response.status === RESPONSE_STATUS.SUCCESS) {
           response.data ? setUserData(response.data) : setUserData([])
           setIsLoading(false)

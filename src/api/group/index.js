@@ -37,13 +37,11 @@ const getGroupMembersByIDAPI = async (groupID) => {
 }
 
 const getPendingGroupMemberByIDAPI = async (groupID) => {
-  console.log('groupID: ', groupID)
   const response = await axios.get(`${SERVER_POST}/group/${groupID}/member/pending`)
   return response.data
 }
 
 const getBlockingGroupMemberByIDAPI = async (groupID) => {
-  console.log('groupID: ', groupID)
   const response = await axios.get(`${SERVER_POST}/group/${groupID}/member/blocking`)
   return response.data
 }

@@ -40,7 +40,6 @@ const BarComponent = ({ group, state, groupUser }) => {
 
   const onCloseModal = () => setModalVisible(false)
   const onOpenModal = () => setModalVisible(true)
-  console.log('bar component re-render: ')
 
   useEffect(() => {
     if (groupUser) {

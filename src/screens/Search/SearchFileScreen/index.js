@@ -12,7 +12,6 @@ const SearchFileScreen = ({ navigation, route }) => {
   const [postData, setPostData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const { search } = route.params
-  console.log('search post screen re-render: ', search)
 
   useFocusEffect(
     useCallback(() => {

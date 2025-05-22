@@ -12,7 +12,6 @@ import { OpacityButtton } from '../../../components/ButtonComponent'
 
 const GroupBlockingScreen = ({ navigation, route }) => {
   const { groupID, groupName } = route.params
-  console.log('groupID first: ', groupID)
   const [pendingMembers, setPendingMembers] = useState([])
   const [searchResult, setSearchResult] = useState('')
 

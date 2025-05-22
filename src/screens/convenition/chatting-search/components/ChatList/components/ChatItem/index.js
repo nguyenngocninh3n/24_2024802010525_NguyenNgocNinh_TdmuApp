@@ -9,7 +9,6 @@ import PollScreen from '../../../../../Vote/Show'
 
 const ChatItem = React.memo(({ item, index, onLayout, members, ownerID, beforeItem, onLongPress, conventionID, search }) => {
   const boolCheckOwner = item.senderID === ownerID ? true : false
-  console.log('re-render chatitem: ', beforeItem?.message)
   var messageType = TextMessage
   switch (item.type) {
     case MESSAGE_TYPE.TEXT:
@@ -97,7 +96,6 @@ const ChatItem = React.memo(({ item, index, onLayout, members, ownerID, beforeIt
   }
   else
   {
-    // console.log('single message')
     // multichat => having avatar & time
     const beforeTime = beforeItem.createdAt
     const timeSpace = helper.DateTimeHelper.compareTwoDateByDate(time, beforeTime, 'hour')

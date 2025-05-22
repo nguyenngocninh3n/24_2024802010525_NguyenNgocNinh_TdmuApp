@@ -78,20 +78,26 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.tdmuapp"
+    namespace "com.myapp"
     defaultConfig {
-        applicationId "com.tdmuapp"
+        applicationId "com.myapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
     }
     signingConfigs {
+        // debug {
+        //     storeFile file('debug.keystore')
+        //     storePassword 'android'
+        //     keyAlias 'androiddebugkey'
+        //     keyPassword 'android'
+        // }
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('myapp-debug.keystore')
+            storePassword 'myapp-debug'
+            keyAlias 'myapp-debug'
+            keyPassword 'myapp-debug'
         }
     }
     buildTypes {

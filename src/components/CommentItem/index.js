@@ -21,7 +21,6 @@ import { navigationRef } from '../../store'
 
 const CommentItem = React.memo(
   ({ item, ownerID, onEdit, onDelete, onReact, onReply, onClose, onViewChildItem }) => {
-    console.log('re-render comment item: ', item.content)
     const [expand, setExpand] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const handleShowModal = () => setModalVisible(true)

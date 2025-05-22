@@ -28,7 +28,6 @@ const getScopePost = scope => {
 
 const PostHeader = ({ item, ownerID, groupID }) => {
   const [modalVisible, setModalVisible] = useState(false)
-  console.log('groupID in post header: ', groupID)
   const handleCloseModal = () => setModalVisible(false)
   const handleShowModal = () => setModalVisible(true)
   const handleToProfile = () => navigate('ProfileScreen', {userID: item.userID, ownerID})

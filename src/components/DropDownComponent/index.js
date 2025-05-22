@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
 
 const DropDownComponent = ({ callback, initValue, data, height, width, size }) => {
-  console.log('dropdown component -re-render: ', initValue)
   const [value, setValue] = useState(initValue)
 
   const customSize = {

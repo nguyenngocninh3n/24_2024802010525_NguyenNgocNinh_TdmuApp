@@ -15,9 +15,6 @@ const OwnerProfile = ({ navigation, route }) => {
   const [state, dispatch] = useCustomContext()
   const [user, setUser] = useState()
   useEffect(() => {
-    if (state?.avatar) {
-      console.log('avatar: ', state.avatar)
-    }
     API.getUserByIdAPI({ uid: state._id }).then((response) => {
       setUser(response)
     })
@@ -27,7 +24,6 @@ const OwnerProfile = ({ navigation, route }) => {
 
   useEffect(() => {
     SocketClient.socket.on('emitBioProfileChange', (data) => {
-      console.log('emitBio: ', data)
       setUser((pre) => {
         const customUser = { ...pre, bio: data.bio }
         return customUser
@@ -35,7 +31,6 @@ const OwnerProfile = ({ navigation, route }) => {
     })
 
     SocketClient.socket.on('emitAvatarProfileChange', (data) => {
-      console.log('emit avatar changed: ')
       setUser((pre) => {
         const customUser = { ...pre }
         customUser.avatar = data.avatar
@@ -44,7 +39,6 @@ const OwnerProfile = ({ navigation, route }) => {
     })
 
     SocketClient.socket.on('emitBackgroundProfileChange', (data) => {
-      console.log('emit background changed: ')
       setUser((pre) => {
         const customUser = { ...pre, background: data.background }
         return customUser

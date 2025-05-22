@@ -26,7 +26,6 @@ const updateUserBioAPI = async (userID, value) => {
 }
 
 const updateUserAvatarAPI = async (userID, current, avatar) => {
-  // console.log('value receive in update user avatar api: ', userID, ' ', current, ' ', avatar.length)
   const response = await axios.put(`${SERVER_POST}/user/${userID}/avatar/update`, {
     current,
     avatar

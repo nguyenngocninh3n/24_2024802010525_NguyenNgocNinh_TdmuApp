@@ -35,7 +35,6 @@ const CreateGroup = ({ navigation, route }) => {
       }
     })
   }, [])
-  console.log('create group re-render')
 
   // Lọc danh sách bạn bè theo từ khóa tìm kiếm
   const filteredFriends = searchQuery

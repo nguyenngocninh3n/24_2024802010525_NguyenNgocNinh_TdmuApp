@@ -27,7 +27,6 @@ const ChattingScreen = ({ navigation, route }) => {
   const [conventionInfo, setConventionInfo] = useState({})
   const [modalVisible, setModalVisible] = useState(false)
   const [selectionItem, setSelectionItem] = useState({})
-  console.log('chatting screen re-render')
 
   const setDataForConvention = (data) => {
     setConventionID(data._id)
@@ -99,7 +98,6 @@ const ChattingScreen = ({ navigation, route }) => {
       })
       // setDataForConvention(newData)
       setConventionID(pre => {
-        console.log('setconventionid when stored convention: ', newData)
         return newData._id
       })
     } else {
@@ -113,7 +111,6 @@ const ChattingScreen = ({ navigation, route }) => {
   }
 
   useEffect(() => {
-    console.log('getconventionID recall')
     getConventionByID(conventionID)
   }, [conventionID])
 
@@ -124,16 +121,13 @@ const ChattingScreen = ({ navigation, route }) => {
         if (notify.type === MESSAGE_NOTIFY_TYPE.CHANGE_AKA && conventionInfo.type === 'private') {
           if (notify.changedID !== state._id) {
             if (notify.action === MESSAGE_NOTIFY_STATUS.UPDATE) {
-              console.log('update status: ', notify.value)
               setConventionInfo((pre) => ({ ...pre, name: notify.value }))
             } else {
-              console.log('clear status: ', notify.value)
 
               setConventionInfo((pre) => ({ ...pre, name: members.get(notify.changedID).userName }))
             }
           }
         } else if (notify.type === MESSAGE_NOTIFY_TYPE.CHANGE_CONVENTION_NAME) {
-          console.log('change convention name: ', notify.value)
           setConventionInfo((pre) => ({ ...pre, name: notify.value }))
         } else if (notify.type === MESSAGE_NOTIFY_TYPE.CHANGE_AVATAR) {
           setConventionInfo((pre) => ({ ...pre, avatar: notify.value }))

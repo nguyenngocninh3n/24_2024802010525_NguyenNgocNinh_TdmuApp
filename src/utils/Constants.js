@@ -1,7 +1,8 @@
-const URL = 'http://192.168.1.6'
+const URL = 'http://192.168.1.11'
 // const URL = 'http://10.0.4.117'
 const PORT = '8080'
 const SERVER_POST = `${URL}:${PORT}`
+export const SERVER_ADDRESS = `${URL}:${PORT}`
 
 const MESSAGE_TYPE = {
   TEXT: 'TEXT',

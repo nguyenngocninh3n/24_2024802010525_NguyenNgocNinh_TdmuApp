@@ -6,10 +6,8 @@ import { POST_TYPE, RESPONSE_STATUS } from '../../../utils/Constants'
 import { useCustomContext } from '../../../store'
 
 const NewPost = ({ navigation, route }) => {
-  console.log('newpost re-render: ', route.params)
   const [state, dispatch] = useCustomContext()
   const handleSubmit = (ownerID, customAttachments, value, scope, pollID) => {
-    console.log('scope: ', scope)
     const newPostData = {
       groupID: route.params.groupID ?? null,
       userID: ownerID,
@@ -33,7 +31,7 @@ const NewPost = ({ navigation, route }) => {
     })
   }
 
-  return <PostHandler onSubmit={handleSubmit} postData={{}} groupID={route.params.groupID}/>
+  return <PostHandler onSubmit={handleSubmit} type={'add'} groupID={route.params.groupID}/>
 }
 
 export default NewPost

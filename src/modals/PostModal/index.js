@@ -76,7 +76,6 @@ const NormalOption = ({ selectOption, onEdit, ownerPostID, ownerID, onClose, gro
 }
 
 const RemoveOption = ({ changeOption, onClose, postID }) => {
-  console.log('post iD in remove option: ', postID)
   const [modalVisible, setModalVisible] = useState(true)
 
   const handleCloseModal = () => {
@@ -122,7 +121,6 @@ const PostModal = ({ modalVisible, onClose, ownerID, ownerPostID, postID, groupI
   const handleSelect = (value) => setOption(value)
   const handleEdit = () => navigationRef.navigate('EditPostScreen', { postID, groupID })
 
-  console.log('postModal re-render: ')
 
   return (
     <Modal

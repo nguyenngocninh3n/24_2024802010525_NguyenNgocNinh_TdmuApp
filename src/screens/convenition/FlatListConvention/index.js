@@ -47,12 +47,9 @@ const FlatListConvention = ({ navigation }) => {
   }
 
   const handleSubmitPauseNotify = (data) => {
-    console.log('handleSubmit pause notify: ',data)
     API.updateNotifyConventionStatus(selectConvention._id, state._id, data.status, data.upto).then(response => {
-      console.log('pause notify response: ', response)
       if(response.status === RESPONSE_STATUS.SUCCESS) {
         const newDate = new Date(data.upto)
-        console.log('new date: ', newDate)
         const customTime =  newDate.getHours() + ' : ' + newDate.getMinutes()
         const customMessage =  data.status === NOTIFY_CONVENTION_STATUS.CUSTOM ? customTime : ' khi bạn bật lại'
         ToastAndroid.show('Thông báo sẽ được tắt cho đến: ' + customMessage, ToastAndroid.SHORT )
@@ -66,7 +63,6 @@ const FlatListConvention = ({ navigation }) => {
 
   const handleExitGroup = async (conventionID, ownerID) => {
     await API.logoutGroupAPI(conventionID, ownerID).then(data => {
-      console.log('data: ', data)
       handleCloseModal()
       setConventions(pre => {
         const custom = pre.filter(item => item._id !== conventionID)

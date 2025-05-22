@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown'
 
 const DropDownRole = ({ callback, initValue }) => {
-  console.log('dropdownrole-re-render: ', initValue)
   const data = [
     { label: 'Công khai', value: 'PUBLIC' },
     { label: 'Bạn bè', value: 'FRIEND' },

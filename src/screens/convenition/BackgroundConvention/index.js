@@ -41,7 +41,6 @@ const BackgroundConvention = ({ navigation, route }) => {
       senderAvatar: state.avatar
     }).then(response => {
       // SocketClient.emitChangeConventionAvatar(conventionID, response.avatar)
-      console.log('response: ', response)
       navigation.goBack()
     })
     setUpdated(false)

@@ -20,7 +20,6 @@ async function createNotificationChannel() {
 }
 
 async function displayNotification({ data }) {
-  console.log('data receive in display notify on notifee: ', data)
   await notifee.displayNotification({
     title: data.title,
     body: data.body,

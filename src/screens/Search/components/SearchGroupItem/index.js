@@ -11,7 +11,6 @@ const SearchGroupItem = ({ item, onPress, onRemove }) => {
   const [groupInfo, setGroupInfo] = useState({})
   useEffect(() => {
     API.getGroupByIDAPI(item.search).then((response) => {
-        console.info('group info: ', item.search, ' ', response)
         setGroupInfo(response.data)
     })
   }, [])

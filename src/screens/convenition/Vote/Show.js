@@ -32,7 +32,6 @@ const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
   const [poll, setPoll] = useState()
   const [selectedOption, setSelectedOption] = useState(null)
   const [state, dispatch] = useCustomContext()
-  console.log('poll screen re-render: ', pollID)
 
   const [modalVisible, setModalVisible] = useState(false)
   const onShowModal = () => setModalVisible(true)
@@ -41,13 +40,11 @@ const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
     if (pollID) {
       API.getPoll(pollID)
         .then((response) => {
-          console.log('response poll data: ', response)
           setPoll(response.data)
           if (response === RESPONSE_STATUS.SUCCESS) {
             const selectionID = response.data.results
               .filter((item) => item.userID === state._id)
               ?.at(0)?.optionID
-            console.log('selectionID: ', selectionID)
             setSelectedOption(selectionID)
           }
         })
@@ -56,7 +53,6 @@ const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
   }, [])
 
   useEffect(() => {
-    console.info('listeners name: ', SocketClient.socket.listeners())
     SocketClient.socket.on('client_addPolling', (data) => {
       setPoll((pre) => ({
         ...pre,
@@ -65,11 +61,9 @@ const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
     })
 
     SocketClient.socket.on('client_updatePolling', (data) => {
-      console.log('listen update Polling in client: ', data)
       setPoll((pre) => {
         if (pre._id === data.pollID) {
           const currentPoll = { ...pre }
-          console.log('currrent poll: ', currentPoll)
 
           const filterIndex = currentPoll.results.findIndex(
             (item) => item.userID === data.data.userID
@@ -99,14 +93,6 @@ const PollScreen = React.memo(({ pollID, members, conventionID, postID }) => {
           const chosens = poll.results.filter((result) => result.optionIDs.includes(item._id))
           const chosensLength = chosens.length
           const itemLength = (chosensLength / (members?.size || poll.results.length)) * 100
-          console.log(
-            'item length: ',
-            itemLength,
-            'chosenlength: ',
-            chosensLength,
-            ' pollingcount: ',
-            poll.results.length
-          )
           return (
             <View style={{ flex: 1 }}>
               <SpaceComponent height={12} />

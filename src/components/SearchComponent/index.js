@@ -4,7 +4,7 @@ import SpaceComponent from '../SpaceComponent'
 import GoBackIcon from '../GoBackComponent/GoBackIcon'
 import RowComponent from '../RowComponent'
 import { OpacityButtton } from '../ButtonComponent'
-import Octicons from 'react-native-vector-icons/Octicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useFocusEffect } from '@react-navigation/native'
 
 const SearchComponent = ({
@@ -13,6 +13,7 @@ const SearchComponent = ({
   onCallback,
   onGoBack,
   onNavigate,
+  onFocus,
   padding,
   margin,
   title,
@@ -49,6 +50,7 @@ const SearchComponent = ({
         value={searchInput}
         autoFocus
         ref={ref}
+        onFocus={onFocus}
         onChangeText={handleTextInputChange}
         style={{
           flex: 1,
@@ -59,7 +61,7 @@ const SearchComponent = ({
       <SpaceComponent width={16} />
       {!unsearch && (
         <OpacityButtton width={38} height={32} onPress={handleSearch}>
-          <Octicons name="search" size={32} color={'blue'} />
+          <Ionicons name="search" size={30} />
         </OpacityButtton>
       )}
     </RowComponent>

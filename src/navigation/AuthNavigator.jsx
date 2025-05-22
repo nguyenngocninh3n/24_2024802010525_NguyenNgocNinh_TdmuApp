@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import LoginScreen from '../../screens/auth'
-
+import React from 'react';
+import LoginScreen from '~/screens/auth';
 const Stack = createNativeStackNavigator()
-const AuthNavigation = () => {
+const AuthNavigator = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -10,4 +10,4 @@ const AuthNavigation = () => {
   )
 }
 
-export default AuthNavigation
+export default AuthNavigator

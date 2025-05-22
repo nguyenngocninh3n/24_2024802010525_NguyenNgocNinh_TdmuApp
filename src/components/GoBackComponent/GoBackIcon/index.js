@@ -1,16 +1,17 @@
 import React from 'react'
 import { OpacityButtton } from '../../ButtonComponent'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Octicons from 'react-native-vector-icons/Octicons'
 import { navigationRef } from '../../../store'
 
-const GoBackIcon = ({ size, color, onNavigate }) => {
+const GoBackIcon = ({ style, size, paddingLeft, paddingRight, color, onNavigate }) => {
   const handleGoBack = () => {
     navigationRef.goBack()
   }
+  const customStyle = { paddingLeft: paddingLeft ?? 12, paddingRight: paddingRight ?? 12, ...style }
 
   return (
-    <OpacityButtton onPress={ onNavigate ?? handleGoBack}>
-      <Ionicons name="arrow-undo-outline" size={size ?? 32} color={color} />
+    <OpacityButtton style={customStyle} onPress={onNavigate ?? handleGoBack}>
+      <Octicons name="chevron-left" size={size ?? 32} color={color} />
     </OpacityButtton>
   )
 }

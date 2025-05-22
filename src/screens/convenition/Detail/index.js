@@ -32,16 +32,6 @@ const DetailScreen = ({
   ownerID,
   conventionName
 }) => {
-  console.log(
-    'prop in detail: ',
-    conventionID,
-    name,
-    avatar,
-    members,
-    type,
-    ownerID,
-    conventionName
-  )
   const [modalVisible, setModalVisible] = useState(false)
   const [chatName, setChatName] = useState(name)
   const onCloseModal = () => setModalVisible(false)
@@ -145,7 +135,6 @@ const DetailScreen = ({
   }
 
   const handleLogoutGroup = (member) => {
-    console.log('logout group')
     API.logoutGroupAPI(conventionID, ownerID, member).then((response) => {
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         ToastAndroid.show('Đã rời khỏi nhóm', ToastAndroid.SHORT)
@@ -290,7 +279,6 @@ const CustomModal = ({ modalVisible, onClose, onUpdate, name }) => {
   const [inputValue, setInputValue] = useState(name)
 
   const handleInputChange = (value) => {
-    console.log('new value: ', value)
     setInputValue(value)
   }
   const handleCloseModal = () => onClose(false)

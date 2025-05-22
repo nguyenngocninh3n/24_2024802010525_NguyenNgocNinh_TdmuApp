@@ -11,7 +11,7 @@ import RowComponent from '../../../components/RowComponent'
 import GoBackIcon from '../../../components/GoBackComponent/GoBackIcon'
 import SpaceComponent from '../../../components/SpaceComponent'
 import { OpacityButtton } from '../../../components/ButtonComponent'
-import Octicons from 'react-native-vector-icons/Octicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 const Tab = createMaterialTopTabNavigator()
 
 const SearchResultScreen = ({ navigation, route }) => {
@@ -45,9 +45,10 @@ const SearchResultScreen = ({ navigation, route }) => {
         <SpaceComponent width={16} />
      
           <OpacityButtton width={38} height={32} >
-            <Octicons name="search" size={32} color={'blue'} />
+            <Ionicons name="search" size={32} color={'blue'} />
           </OpacityButtton>
       </RowComponent>
+      {/* <SearchComponent onSearch={updatedOnGoBack}  title={'Nhập nội dung tìm kiếm...'} value={search} />  */}
 
       <Tab.Navigator
         style={{ justifyContent: 'center', margin: 0, padding: 0, flex: 1 }}

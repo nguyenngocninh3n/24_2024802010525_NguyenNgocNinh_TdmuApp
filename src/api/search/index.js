@@ -26,7 +26,6 @@ const searchVideoAPI = async (userID, queryString) => {
 }
 
 const getSearchHistoryListByUserID = async userID => {
-  console.log('getSearchHistoryListByUserID api: ', userID)
   const response = await axios.get(`${SERVER_POST}/search/history/${userID}`)
   return response.data
 }
@@ -37,7 +36,6 @@ const addSearchTextHistory = async (userID, queryString) => {
 }
 
 const addSearchTypeHistory = async (userID, queryString, type) => {
-  console.log('addSearchTypeHistory api: ', userID, ' ', queryString, ' ', type)
   const response = await axios.post(`${SERVER_POST}/search/history/add/${userID}/${type}/${queryString}`)
   return response.data
 }

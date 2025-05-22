@@ -66,7 +66,6 @@ const PendingFriendScreen = ({ navigation, route }) => {
 
   useEffect(() => {
     API.getPendingFriend(state._id).then((response) => {
-      console.log('data: ', response)
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setPendings(response.data.data)
       }

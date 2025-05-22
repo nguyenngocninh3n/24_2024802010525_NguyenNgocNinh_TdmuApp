@@ -92,7 +92,6 @@ function onConventions(callback) {
 }
 
 function emitConvention(data) {
-  console.log('emit convention inserver: ', data)
   socket.emit('convention', data)
 }
 

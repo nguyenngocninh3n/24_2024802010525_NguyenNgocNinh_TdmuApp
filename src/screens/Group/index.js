@@ -16,12 +16,10 @@ const GroupScreen = ({ navigation, route }) => {
   const [modalVisible, setModalVisibal] = useState(false)
   const [state, dispatch] = useCustomContext()
   const { groupID } = route.params
-  console.log('Group re -render')
 
   useEffect(() => {
     API.getGroupByIDAPI(groupID).then((response) => {
       if (response.status === RESPONSE_STATUS.SUCCESS) {
-        console.log('response get group by id: ', response)
         setGroup(response.data)
       }
     })

@@ -13,7 +13,6 @@ const getListFriend = async ({ userID }) => {
 }
 
 const updateStatusFriend = async ({ ownerID, userID, status }) => {
-  console.log('status friend when update status friend api: ', status)
   const response = await axios.post(
     `${SERVER_POST}/friend/status/update?ownerID=${ownerID}&userID=${userID}&status=${status}`
   )

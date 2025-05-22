@@ -40,7 +40,6 @@ const SearchScreen = ({ navigation, route }) => {
   }
   // useFocusEffect(
   //   useCallback(() => {
-  //     console.log('Search SCreen re-render: ', route.params?.search, ' ', search)
 
   //     if (route.params?.search !== search) {
   //       setSearchResult(pre => route.params?.search ?? '')
@@ -53,7 +52,6 @@ const SearchScreen = ({ navigation, route }) => {
       if (response.status === RESPONSE_STATUS.SUCCESS) {
         setSearchHistory((pre) => {
           const newItem = response.data
-          console.log('new item: ', newItem)
           const filterArr = pre.filter((element) => element._id !== newItem._id)
           return [newItem, ...filterArr]
         })
@@ -106,7 +104,6 @@ const SearchScreen = ({ navigation, route }) => {
       response.status === RESPONSE_STATUS.SUCCESS && setSearchHistory(response.data)
     })
   }, [search])
-  console.log('Search SCreen re-render: ', route.params?.search, ' ', search)
 
   return (
     <View>

@@ -81,7 +81,6 @@ const SearchConventionScreen = ({ navigation, route }) => {
       currentIndex: arrIndex.indexOf(item.index),
       data: arrIndex
     }
-    console.log('search var: ', search)
     navigation.navigate('ChattingScreen', { conventionID, search: search })
   }
 
